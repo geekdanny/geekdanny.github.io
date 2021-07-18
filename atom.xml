@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://broadgeek.com/"/>
-  <updated>2021-04-05T05:09:24.000Z</updated>
+  <updated>2021-07-18T00:43:16.000Z</updated>
   <id>https://broadgeek.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>arch-shelves</title>
+    <link href="https://broadgeek.com/2021/07/17/d0b3/"/>
+    <id>https://broadgeek.com/2021/07/17/d0b3/</id>
+    <published>2021-07-18T00:43:16.000Z</published>
+    <updated>2021-07-18T00:43:16.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;testing&lt;/p&gt;
+
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>2021年自我提升计划</title>
@@ -554,41 +578,6 @@
       <category term="Android" scheme="https://broadgeek.com/tags/Android/"/>
     
       <category term="Compilation" scheme="https://broadgeek.com/tags/Compilation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>详解华为正在开发的操作系统</title>
-    <link href="https://broadgeek.com/2020/05/17/bbe/"/>
-    <id>https://broadgeek.com/2020/05/17/bbe/</id>
-    <published>2020-05-17T21:44:20.000Z</published>
-    <updated>2020-05-17T21:44:20.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;blockquote&gt;
-&lt;p&gt;转文学城&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;读者按： 最近开始研究华为的系统，读了很多文章和代码，计划庖丁解牛的研究华为面临的问题。只有清晰的了解问题后，才可以对症下药。这篇文章有点意思，记录一下以做参考。&lt;/p&gt;
-&lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-    
-      <category term="操作系统" scheme="https://broadgeek.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="华为" scheme="https://broadgeek.com/tags/%E5%8D%8E%E4%B8%BA/"/>
-    
-      <category term="鸿蒙" scheme="https://broadgeek.com/tags/%E9%B8%BF%E8%92%99/"/>
-    
-      <category term="方舟" scheme="https://broadgeek.com/tags/%E6%96%B9%E8%88%9F/"/>
     
   </entry>
   
