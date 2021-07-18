@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>arch-shelves</title>
+      <title>技术货架</title>
       <link href="2021/07/17/d0b3/"/>
       <url>2021/07/17/d0b3/</url>
       
         <content type="html"><![CDATA[<p>testing</p>]]></content>
       
       
+      <categories>
+          
+          <category> 编程技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+        </tags>
       
     </entry>
     

@@ -17,7 +17,7 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>arch-shelves</title>
+    <title>技术货架</title>
     <link href="https://broadgeek.com/2021/07/17/d0b3/"/>
     <id>https://broadgeek.com/2021/07/17/d0b3/</id>
     <published>2021-07-18T00:43:16.000Z</published>
@@ -37,6 +37,10 @@
     </summary>
     
     
+      <category term="编程技术" scheme="https://broadgeek.com/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="C++" scheme="https://broadgeek.com/tags/C/"/>
     
   </entry>
   
