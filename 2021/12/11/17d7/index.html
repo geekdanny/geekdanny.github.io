@@ -1,0 +1,409 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>移动GPU测试那些事 | 极客丹尼</title><meta name="keywords" content="GPU"><meta name="author" content="Danny S."><meta name="copyright" content="Danny S."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文主要内容转自知乎《手机标准化评测方法的梳理和解读V2.0》。主要摘选了原文关于GPU性能评测的章节，并在原文基础上对于部分内容作了注解。如有版权不恰当引用，请及时联系我。 在阅读本文前，我先对业内有名的工具做一些介绍。 GFXBenchGFXBench是移动平台最常见也是最权威的GPU测试软件之一了，很多人都知道它的曼哈顿、霸王龙测试，其在移动GPU基准测试上的地位跟PC界的3DMark差不多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动GPU测试那些事">
+<meta property="og:url" content="https://broadgeek.com/2021/12/11/17d7/index.html">
+<meta property="og:site_name" content="极客丹尼">
+<meta property="og:description" content="本文主要内容转自知乎《手机标准化评测方法的梳理和解读V2.0》。主要摘选了原文关于GPU性能评测的章节，并在原文基础上对于部分内容作了注解。如有版权不恰当引用，请及时联系我。 在阅读本文前，我先对业内有名的工具做一些介绍。 GFXBenchGFXBench是移动平台最常见也是最权威的GPU测试软件之一了，很多人都知道它的曼哈顿、霸王龙测试，其在移动GPU基准测试上的地位跟PC界的3DMark差不多">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg">
+<meta property="article:published_time" content="2021-12-11T18:38:27.000Z">
+<meta property="article:modified_time" content="2021-12-11T18:38:27.000Z">
+<meta property="article:author" content="Danny S.">
+<meta property="article:tag" content="GPU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/geekdanny/images/master/kirito.ico"><link rel="canonical" href="https://broadgeek.com/2021/12/11/17d7/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ma+Shan+Zheng" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '移动GPU测试那些事',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-11 10:38:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="极客丹尼" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">极客丹尼</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">移动GPU测试那些事</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-11T18:38:27.000Z" title="发表于 2021-12-11 10:38:27">2021-12-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-11T18:38:27.000Z" title="更新于 2021-12-11 10:38:27">2021-12-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/">科技观察</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="移动GPU测试那些事"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本文主要内容转自知乎<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/343565856">《手机标准化评测方法的梳理和解读V2.0》</a>。主要摘选了原文关于GPU性能评测的章节，并在原文基础上对于部分内容作了注解。如有版权不恰当引用，请及时联系我。</p>
+<p>在阅读本文前，我先对业内有名的工具做一些介绍。</p>
+<h1 id="GFXBench"><a href="#GFXBench" class="headerlink" title="GFXBench"></a>GFXBench</h1><p><strong>GFXBench</strong>是移动平台最常见也是最权威的GPU测试软件之一了，很多人都知道它的曼哈顿、霸王龙测试，其在移动GPU基准测试上的地位跟PC界的3DMark差不多，反而是3DMark自己在移动平台没那么受欢迎。随着移动GPU的性能不断提升，GFXBench的测试场景也在不断升级，最新的GFXBench 5.0增加了Aztec Ruins（阿兹特克废墟）测试场景，分辨率可达2K级别，并支持DX12、Vulkan等API，其要求之强悍，足以把当前手机/平板的苹果A11、骁龙845、麒麟970榨干。</p>
+<p><img src="https://s2.loli.net/2021/12/12/GzR1YAfH7aJkPgQ.jpg" alt="img"></p>
+<h1 id="Aztec-Ruins"><a href="#Aztec-Ruins" class="headerlink" title="Aztec Ruins"></a>Aztec Ruins</h1><p>GFXBench 5.0的Aztec Ruins（阿兹特克废墟）开发了三年多了，早在2015年官方就宣布过开发5.0测试了，2016年还在GDC大会上演示过，直到现在才正式发布。至此GFXBench的高级测试中已经有四个主要的测试场景了——曼哈顿、曼哈顿3.1、Car Chase及Aztec Ruins，技术越来越先进，要求也越来越高。</p>
+<p><img src="https://s2.loli.net/2021/12/12/lqofHa2SciEDGVC.jpg" alt="img"></p>
+<p>说到Aztec Ruins的具体要求，首先它支持的API更加先进，除了移动平台的Metal及OpenGL ES 3.2之外，还有桌面级的DX12、DX11及OpenGL，最重要的则是跨平台的Vulkan，官方介绍中提到Aztec Ruins的引擎支持多线程、后期特效预录制命令缓冲区、延迟渲染等技术。</p>
+<p>Aztec Ruins有High及Normal两个级别，前者是2560x1440分辨率的，后者是1920x1080分辨率的，同时每个级别还有offscreen及onscreen之分。</p>
+<p><img src="https://s2.loli.net/2021/12/12/Ld4xSUkZ7XwQA2C.jpg" alt="img"></p>
+<p>虽然现在的测试样本还比较少，不过新的Aztec Ruins场景绝对可以说说移动GPU杀手，High级别offscreen测试中除了iPhone X、iPad Pro能维持10fps以上的帧数，骁龙835及以下处理器帧数都跌破个位数。</p>
+<p><img src="https://s2.loli.net/2021/12/12/XxqhgfRbpPs8F6l.jpg" alt="img"></p>
+<p>Normal级别的测试倒是好多了，不过30fps以上的主要还是苹果iPhone X及iPad Pro。</p>
+<p>性能测评其实是手机测评里最好测试，数据最好量化的一个部分。因为测试性能你只需要手机本身和一台PC而已，可以说是基本没有门槛的一个项目了。手机的性能测试分为两个部分，分别为基准性能测试（跑分）和游戏帧率测试。</p>
+<h1 id="基准性能测试"><a href="#基准性能测试" class="headerlink" title="基准性能测试"></a>基准性能测试</h1><p>首先是基准性能测试，许多人现在可能在测评中不太看重跑分了，觉得跑分不太能体现手机的真实性能表现，但是跑分依然是一台手机极限性能的标准测试方式，我们也可以通过一些特殊的方法让基准性能测试展现手机性能的性能释放，散热和降频情况。</p>
+<p>工具上我推荐CPU项目的GeekBench5（需要Google Play），GPU项目的3D Mark，GFXBench5.0（需要Google Play）和闪存项目的Androbench5.0。不推荐大家使用安兔兔和鲁大师作为跑分工具，这两个跑分工具在过去都存在过不同程度的争议问题，其中鲁大师还出现过“660跑分比835还高”的闹剧，可信度较低。</p>
+<p>关于这几个项目，我具体说一下GFXBench的测试，GFXBench的测试项目在这几个测试工具是最多的，分为高水平测试，低水平测试和其他项目，而高水平测试中又分为新项目（阿兹特科）和老项目（Car Chase，曼哈顿，<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=霸王龙&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A343565856}">霸王龙</a>），目前来说，我推荐大家使用高水平测试进行测试，低水平测试对于目前的手机性能来说已经非常小儿科了。</p>
+<p>通常来说，如果你想测试一款手机的极限性能，单独测试神庙的几项就可以得到成绩了。但如果你想得到手机在高发热情况的性能释放和散热情况话，把整个高水平测试项目跑完是一种很好的测试方式，在跑完神庙测试后，手机的发热已经达到一个很可观的程度，这个时候的性能释放水平就很有参考性了，散热不好或者调度机制保守的手机这时候就会出现降频的情况。</p>
+<p>使用软件测试完数据后，尽量不要使用截图的形式展示成绩，目前大家基本上都是使用手机看文章的，使用竖屏截图对于读者的体验非常差，使用Excel整理数据并制出表格是更好的一种方式，在对比测评中，这样也能更好的展示不同产品数据的差异。</p>
+<p><img src="https://s2.loli.net/2021/12/12/1Fs39ZOBghbH7YS.jpg" alt="img"></p>
+<h1 id="游戏帧率测试"><a href="#游戏帧率测试" class="headerlink" title="游戏帧率测试"></a>游戏帧率测试</h1><p>然后便是游戏帧率测试了，测试工具首推腾讯的Perfdog，快否由于长期无更新，目前绝大部分手机都不再适配了，而GameBench需要付费使用。</p>
+<p>目前来说，腾讯这个既好用，又不需要付费。而且腾讯这个软件支持WiFi传输帧率数据到电脑上，所有的数据都会云备份到电脑端，注意在测试的时候要打开所有的数据采集。</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//perfdog.qq.com/">PerfDog | 移动全平台性能测试分析专家perfdog.qq.com/<img src="https://s2.loli.net/2021/12/12/wenmhUz3xrKp2Jk.jpg" alt="img"></a></p>
+<p>Prefdog有许多项数据，这些数据将有助于你对手机的性能释放情况和性能策略进行分析，让你知道为何这台手机在游戏里的帧率很高/很低。</p>
+<p>CPU Clock可以查看八颗CPU核心在游戏过程中的频率，你也可以单独选择查看一下，下图展示的就是小米11超大核在原神游戏中的运行情况。</p>
+<h1 id="CPU温度"><a href="#CPU温度" class="headerlink" title="CPU温度"></a>CPU温度</h1><p>而CPU温度则有助于帮你了解一台手机的温度墙，温度墙，顾名思义就是手机预设的Soc温度的临界值，当传感器采集的温度数据达到这一数值时，Soc将会降低性能，将温度降低至一定程度后再恢复满血输出，如果温度墙设定的过低或者手机的性能释放策略不合理，手机在游戏过程中将会出现较为明显的掉帧，在掉帧的同时关注手机的CPU频率和GPU频率，可以有助于帮助你找到原因。</p>
+<p><img src="https://s2.loli.net/2021/12/12/YUXLSI2Ba36GFJA.jpg" alt="img"></p>
+<p>Battery，就是手机在游戏时的功率和消耗的电量，功率上双电芯的手机采集的值通常是手机功率的1/2（当然也有不是的），如果Prefdog采集的功率数过低，而你手上的手机又恰好是双电芯快充的，把数值乘以2就对了。</p>
+<p><img src="https://s2.loli.net/2021/12/12/kEfBz3gDw98dqLG.jpg" alt="img"></p>
+<h1 id="GPU功耗"><a href="#GPU功耗" class="headerlink" title="GPU功耗"></a>GPU功耗</h1><p>另外，你也可以使用PrefDog和GFXBench5.0采集手机的GPU功耗数据并计算GPU能耗比。目前绝大多数媒体和发烧友都以GFXBench 5.0为测试GPU的方式，具体方法如下：</p>
+<p>GFXBench 5.0需要联网挂载工具运行，因此我们将所有手机的设置统一为“最低亮度”，“开启飞行模式并打开WiFi，连接同一网络”，“后台挂载工具，使用相同节点”，“使用同一版本的GFXBench5”。</p>
+<p>使用Prefdog测试功耗，先将手机所有后台和功能关闭，亮度最低，仅开启WiFi，测试手机在此时的空载功耗，具体方法为选择手机桌面为测试软件，将手机静置不做任何操作，关闭动态壁纸和所有的动画，测量1秒后，注意在连接WiFi时部分手机在静置后会开启自动云备份或者APP更新，如果测试出的功耗过高或者测试时出现CPU占用率过高的情况，你可以先将这些功能关闭后再重新测试，如果不是这些情况就需要你自己一个一个排除了。最终我们得到了这样一段<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=功耗曲线&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A343565856}">功耗曲线</a>和平均功耗值，对数值进行记录。</p>
+<p><img src="https://s2.loli.net/2021/12/12/jYSR6dLInBeoHDx.jpg" alt="img"></p>
+<p>再挂载工具使用GFXBench 5.0进行单项离屏跑分，跑分时采集平均功耗数据并减去空载数据，得到手机处理器的功耗，我们推荐的单项测试项目为1080P曼哈顿3.1离屏，1440P阿兹特克离屏（OpenGL/Vulkan ）。</p>
+<p>注意，Prefdog可以选定有效数据再导出，为了排除干扰，选择没有网络运行的数据导出并计算平均功耗</p>
+<p><img src="https://s2.loli.net/2021/12/12/k8VnloaBIEi4HQS.jpg" alt="img"></p>
+<p>导出的数据是一个Excel形式的表格，最底下记录了各项数值，你也可以单独使用数据制作折线表。</p>
+<p><img src="https://s2.loli.net/2021/12/12/jC6ZJKGolgswvhP.jpg" alt="img"></p>
+<h1 id="帧率，功耗，和能耗比"><a href="#帧率，功耗，和能耗比" class="headerlink" title="帧率，功耗，和能耗比"></a>帧率，功耗，和能耗比</h1><p>最终得到了帧率，功耗，和能耗比。</p>
+<p><img src="https://s2.loli.net/2021/12/12/Y39TCajLgFqSQd2.jpg" alt="img"></p>
+<p>具体的测试游戏方面，其实各位可测的选项有很多，但是要注意的是，<strong>市面上绝大部分游戏使用骁龙710这个级别的处理器即可满帧</strong>，例如王者荣耀，对于百元机以外的产品完全没有测试的必要，既然要测试，那就测试性能需求高的游戏。</p>
+<p>目前市面上比较主流，对性能需求较高的游戏有 三款，分别是和平精英，狂野飙车9和原神。开启全高画质，和平精英满帧至少需要骁龙765G/麒麟810级别的处理器，而崩坏3安卓端和原神至今没有能够满帧运行的处理器。</p>
+<p>在测试和平精英的时候，你可能会遇到和平精英没有适配测试机型的情况，例如我前一段测试的Mate 40 Pro，其支持的画质仅仅有HDR高清+40帧，这个时候，你就需要PUBG Tool来破解HDR高清+60帧的画质选项了，正版在酷安可下载，但是不推荐购买付费版，因为你就算买了付费版许多机型依然不能破解90帧的画质选项。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-6eec8eecb02624fef0cad6e27d8e3d50_1440w.jpg" alt="img"></p>
+<p>还有，许多做手机测评的朋友由于没玩过崩坏3，在崩坏3的测试中会存在一些误区。例如在测试关卡和角色的选择上，崩坏3每个角色都有着不同的粒子效果，有的简单，有的就很丰富，关卡也是差不多的情况，难度高的关卡需要渲染更多的怪物，这对手机性能的需求同样是一种挑战。因此来说，我推荐各位使用活动中的角色试玩关卡进行测试，首先，角色试玩关卡不需要你买新角色，不需要打通多少关卡，门槛非常低，而且角色试玩关卡的内容基本上都是崩坏3新版本的内容，崩坏3每个版本更新都会提升对手机性能的需求，相对来说也有一些前瞻性。</p>
+<p><img src="https://s2.loli.net/2021/12/12/Srte4kOBgjXNyTY.jpg" alt="img"></p>
+<p>原神这个游戏也和崩坏3比较类似，具体的测试场景我推荐在蒙德城和璃月港跑图，以及在庆云顶飞行，这几个场景大多需要渲染更多的内容，而粒子效果较多的场景，我个人更加推荐打无相之雷，操作最简单，例子效果也比较多。</p>
+<p><img src="https://s2.loli.net/2021/12/14/XbIApCo6SPFaNZq.jpg" alt="img"></p>
+<p>最后说一下机身温度测试。目前消费电子产品评测使用的温度测试设备为红外热成像仪，便宜的价格通常在一千到两千元不等，贵的就没数了，一般测温使用的测温枪是不适合测量手机温度的，不少媒体用的是Filr的手机热成像，直接插在手机上就可以用了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://broadgeek.com">Danny S.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://broadgeek.com/2021/12/11/17d7/">https://broadgeek.com/2021/12/11/17d7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://broadgeek.com" target="_blank">极客丹尼</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/GPU/">GPU</a></div><div class="post_share"><div class="social-share" data-image="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/12/c8bf/"><img class="prev-cover" src="https://s2.loli.net/2021/12/13/ew5lOSUv6LWHtGr.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ARMv9以及公版CPU有什么重大改进</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/09/a42f/"><img class="next-cover" src="https://s2.loli.net/2021/12/10/YblgjoOGtMrCS1N.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">GPU 计算的发展历程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/09/a42f/" title="GPU 计算的发展历程"><img class="cover" src="https://s2.loli.net/2021/12/10/YblgjoOGtMrCS1N.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-12-09</div><div class="title">GPU 计算的发展历程</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Danny S.</div><div class="author-info__description">白羊男子 指尖微凉<br> 一半明媚 一半忧伤</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg"><i class="fab fa-weixin"></i><span>微信</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/geekdanny" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dhrsongcs@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">每天进步一点点</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GFXBench"><span class="toc-number">1.</span> <span class="toc-text">GFXBench</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Aztec-Ruins"><span class="toc-number">2.</span> <span class="toc-text">Aztec Ruins</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E5%87%86%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">基准性能测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%B8%A7%E7%8E%87%E6%B5%8B%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">游戏帧率测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU%E6%B8%A9%E5%BA%A6"><span class="toc-number">5.</span> <span class="toc-text">CPU温度</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GPU%E5%8A%9F%E8%80%97"><span class="toc-number">6.</span> <span class="toc-text">GPU功耗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%A7%E7%8E%87%EF%BC%8C%E5%8A%9F%E8%80%97%EF%BC%8C%E5%92%8C%E8%83%BD%E8%80%97%E6%AF%94"><span class="toc-number">7.</span> <span class="toc-text">帧率，功耗，和能耗比</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系"><img src="https://s2.loli.net/2022/04/21/JVjPkp1tIU8xmZ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C标准库 POSIX库 glibc库有什么关系"/></a><div class="content"><a class="title" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系">C标准库 POSIX库 glibc库有什么关系</a><time datetime="2022-04-20T19:56:32.000Z" title="更新于 2022-04-20 12:56:32">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/49da/" title="一些常见的国际标准化组织"><img src="https://s2.loli.net/2022/04/21/1wicXtVxAMlHZOf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些常见的国际标准化组织"/></a><div class="content"><a class="title" href="/2022/04/20/49da/" title="一些常见的国际标准化组织">一些常见的国际标准化组织</a><time datetime="2022-04-20T19:07:33.000Z" title="更新于 2022-04-20 12:07:33">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现"><img src="https://s2.loli.net/2021/12/13/f93YwJV1RTSMNbx.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="骁龙8Gen1 SoC 在ARMv9上的落地表现"/></a><div class="content"><a class="title" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现">骁龙8Gen1 SoC 在ARMv9上的落地表现</a><time datetime="2021-12-12T23:52:09.000Z" title="更新于 2021-12-12 15:52:09">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进"><img src="https://s2.loli.net/2021/12/13/ew5lOSUv6LWHtGr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ARMv9以及公版CPU有什么重大改进"/></a><div class="content"><a class="title" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进">ARMv9以及公版CPU有什么重大改进</a><time datetime="2021-12-12T18:04:13.000Z" title="更新于 2021-12-12 10:04:13">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/11/17d7/" title="移动GPU测试那些事"><img src="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="移动GPU测试那些事"/></a><div class="content"><a class="title" href="/2021/12/11/17d7/" title="移动GPU测试那些事">移动GPU测试那些事</a><time datetime="2021-12-11T18:38:27.000Z" title="更新于 2021-12-11 10:38:27">2021-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background: black"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Danny S.</div><div class="footer_custom_text">回忆是一种重逢 遗忘是一种自由</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '680c63616574c46feb6f',
+      clientSecret: '6ae95fb865944251ddd1751dd0d7e445aeddd831',
+      repo: 'geek-comments',
+      owner: 'geekdanny',
+      admin: ['geekdanny'],
+      id: '584ab5ebc46c835a98209d1847054ca9',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const findTrueUrl = (array) => {
+    Promise.all(array.map(item =>
+      fetch(item.url).then(resp => resp.json()).then(data => {
+        const urlArray = data.body.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ig)
+        if (data.user.login === 'utterances-bot') {
+          return urlArray.pop()
+        } else {
+          return urlArray.shift()
+        }
+      })
+    )).then(res => {
+        array = array.map((i,index)=> {
+          return {
+            ...i,
+            url: res[index]
+          }
+        })
+
+        saveToLocal.set('github-newest-comments', JSON.stringify(array), 10/(60*24))
+        generateHtml(array)
+    });
+  }
+
+  const getComment = () => {
+    fetch('https://api.github.com/repos/geekdanny/geek-comments/issues/comments?sort=updated&direction=desc&per_page=6&page=1',{
+      "headers": {
+        Accept: 'application/vnd.github.v3.html+json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const githubArray = data.map(item => {
+          return {
+            'avatar': item.user.avatar_url,
+            'content': changeContent(item.body_html),
+            'nick': item.user.login,
+            'url': item.issue_url,
+            'date': item.updated_at,
+            'githubUrl': item.html_url
+          }
+        })
+        findTrueUrl(githubArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('github-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="4900141628" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.9}});</script></body></html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Setup a Hexo Editor Environment on Mac | 极客丹尼</title><meta name="keywords" content="Hexo,Yuque,Mac"><meta name="author" content="Danny S."><meta name="copyright" content="Danny S."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Use Upic to Upload to the Image Bed1brew cask install upic  Setup Image Bed on the Github Generate the App SecretGo to the Github-&gt;Setting-&gt;Developer Settings-&gt;Personal access tokens  Open u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Setup a Hexo Editor Environment on Mac">
+<meta property="og:url" content="https://broadgeek.com/2019/12/30/3803/index.html">
+<meta property="og:site_name" content="极客丹尼">
+<meta property="og:description" content="Use Upic to Upload to the Image Bed1brew cask install upic  Setup Image Bed on the Github Generate the App SecretGo to the Github-&gt;Setting-&gt;Developer Settings-&gt;Personal access tokens  Open u">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20191217/7658e44c492249c39abe8d0856e4394d.jpeg">
+<meta property="article:published_time" content="2019-12-30T19:12:03.000Z">
+<meta property="article:modified_time" content="2019-12-30T19:12:03.000Z">
+<meta property="article:author" content="Danny S.">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Yuque">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://5b0988e595225.cdn.sohucs.com/images/20191217/7658e44c492249c39abe8d0856e4394d.jpeg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/geekdanny/images/master/kirito.ico"><link rel="canonical" href="https://broadgeek.com/2019/12/30/3803/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ma+Shan+Zheng" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Setup a Hexo Editor Environment on Mac',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-12-30 11:12:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="极客丹尼" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://5b0988e595225.cdn.sohucs.com/images/20191217/7658e44c492249c39abe8d0856e4394d.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">极客丹尼</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Setup a Hexo Editor Environment on Mac</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-12-30T19:12:03.000Z" title="发表于 2019-12-30 11:12:03">2019-12-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-12-30T19:12:03.000Z" title="更新于 2019-12-30 11:12:03">2019-12-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">659</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Setup a Hexo Editor Environment on Mac"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a name="diUkv"></a></p>
+<h1 id="Use-Upic-to-Upload-to-the-Image-Bed"><a href="#Use-Upic-to-Upload-to-the-Image-Bed" class="headerlink" title="Use Upic to Upload to the Image Bed"></a>Use Upic to Upload to the Image Bed</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install upic</span><br></pre></td></tr></table></figure>
+
+<h2 id="Setup-Image-Bed-on-the-Github"><a href="#Setup-Image-Bed-on-the-Github" class="headerlink" title="Setup Image Bed on the Github"></a>Setup Image Bed on the Github</h2><ol>
+<li><p>Generate the App Secret<br>Go to the Github-&gt;Setting-&gt;Developer Settings-&gt;Personal access tokens</p>
+</li>
+<li><p>Open uPic-&gt;Preferences, to add Github as the image bed<br><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/uksitl.jpg" alt="uksitl"></p>
+</li>
+<li><p>Set the github repo information<br><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/Kw2jG9.jpg" alt="Kw2jG9"></p>
+</li>
+</ol>
+<h1 id="Prepare-Hexo-Env"><a href="#Prepare-Hexo-Env" class="headerlink" title="Prepare Hexo Env"></a>Prepare Hexo Env</h1><h2 id="Install-Node"><a href="#Install-Node" class="headerlink" title="Install Node"></a>Install Node</h2><p>There are many ways to install nodes. Most advanced users want to install multiple versions of nodes instead of one version only. To have multiple versions of node installed, I chose to use nvm.<br><a name="u1DzV"></a></p>
+<h3 id="Install-nvm-via-brew"><a href="#Install-nvm-via-brew" class="headerlink" title="Install nvm via brew"></a>Install nvm via brew</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bew install nvm</span><br><span class="line">mkdir ~/.nvm</span><br><span class="line"><span class="comment">#put the following the in the .zshrc</span></span><br><span class="line">  <span class="built_in">export</span> NVM_DIR=<span class="string">&quot;<span class="variable">$HOME</span>/.nvm&quot;</span></span><br><span class="line">  [ -s <span class="string">&quot;/usr/local/opt/nvm/nvm.sh&quot;</span> ] &amp;&amp; . <span class="string">&quot;/usr/local/opt/nvm/nvm.sh&quot;</span>  <span class="comment"># This loads nvm</span></span><br><span class="line">  [ -s <span class="string">&quot;/usr/local/opt/nvm/etc/bash_completion.d/nvm&quot;</span> ] &amp;&amp; . <span class="string">&quot;/usr/local/opt/nvm/etc/bash_completion.d/nvm&quot;</span>  <span class="comment"># This loads nvm bash_completion</span></span><br></pre></td></tr></table></figure>
+
+<p><a name="pkBHr"></a></p>
+<h3 id="To-see-what-Node-versions-are-available-to-install-run"><a href="#To-see-what-Node-versions-are-available-to-install-run" class="headerlink" title="To see what Node versions are available to install run"></a>To see what Node versions are available to install run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm ls-remote</span><br></pre></td></tr></table></figure>
+<p><a name="2spx7"></a></p>
+<h3 id="Install-the-LTS"><a href="#Install-the-LTS" class="headerlink" title="Install the LTS"></a>Install the LTS</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install v12.14.0</span><br></pre></td></tr></table></figure>
+<p>After installing you can verify what is installed with</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm ls</span><br></pre></td></tr></table></figure>
+<p><a name="Ai8HU"></a></p>
+<h3 id="Swith-between-different-node-versions"><a href="#Swith-between-different-node-versions" class="headerlink" title="Swith between different node versions"></a>Swith between different node versions</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm use 11</span><br></pre></td></tr></table></figure>
+<p><a name="D17ZW"></a></p>
+<h1 id="Add-SSH-keys-for-the-Github-repo"><a href="#Add-SSH-keys-for-the-Github-repo" class="headerlink" title="Add SSH keys for the Github repo"></a>Add SSH keys for the Github repo</h1><p><a name="EljiX"></a></p>
+<h2 id="Generate-SSh-keys"><a href="#Generate-SSh-keys" class="headerlink" title="Generate SSh keys"></a>Generate SSh keys</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+<p><a name="adding-your-ssh-key-to-the-ssh-agent"></a></p>
+<h3 id="Adding-your-SSH-key-to-the-ssh-agent"><a href="#Adding-your-SSH-key-to-the-ssh-agent" class="headerlink" title="Adding your SSH key to the ssh-agent"></a><a target="_blank" rel="noopener" href="https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent">Adding your SSH key to the ssh-agent</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add -K ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<p><a name="IeIjJ"></a></p>
+<h2 id="Copy-the-SSH-key-to-your-clipboard"><a href="#Copy-the-SSH-key-to-your-clipboard" class="headerlink" title="Copy the SSH key to your clipboard"></a>Copy the SSH key to your clipboard</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pbcopy &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<p><a name="iP1c2"></a></p>
+<h1 id="Checkout-Hexo-Blog-Repo"><a href="#Checkout-Hexo-Blog-Repo" class="headerlink" title="Checkout Hexo Blog Repo"></a>Checkout Hexo Blog Repo</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:geekdanny/hexo.git</span><br></pre></td></tr></table></figure>
+
+<p><a name="wM3H5"></a></p>
+<h1 id="Install-Hexo-on-Mac"><a href="#Install-Hexo-on-Mac" class="headerlink" title="Install Hexo on Mac"></a>Install Hexo on Mac</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#install hexo</span></span><br><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p><a name="mhSbi"></a></p>
+<h2 id="Add-Butterfly-Theme-Specific-Dependencies"><a href="#Add-Butterfly-Theme-Specific-Dependencies" class="headerlink" title="Add Butterfly Theme Specific Dependencies"></a>Add Butterfly Theme Specific Dependencies</h2><p>My hexo uses the Butterfly Theme, which requires some specific dependencies. The bufferfly repo located at <a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">https://github.com/jerryc127/hexo-theme-butterfly</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Go to the blog folder</span></span><br><span class="line"><span class="built_in">cd</span> /Users/admin/Development/personal/hexo/blog/</span><br><span class="line"><span class="comment">#clone the butterfly theme</span></span><br><span class="line">git <span class="built_in">clone</span> -b dev https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly</span><br><span class="line"><span class="comment">#Install cheerio</span></span><br><span class="line">npm install cheerio</span><br><span class="line"><span class="comment">#Install live2d</span></span><br><span class="line">npm install hexo-helper-live2d</span><br><span class="line"><span class="comment">#Install local search</span></span><br><span class="line">npm install hexo-generator-search</span><br><span class="line"><span class="comment">#Install WordCount</span></span><br><span class="line">npm install hexo-wordcount</span><br><span class="line"><span class="comment">#Install hexo-abbrlink</span></span><br><span class="line">npm install hexo-abbrlink</span><br></pre></td></tr></table></figure>
+<p><a name="ov482"></a></p>
+<h2 id="Sync-YuQue-with-Hexo"><a href="#Sync-YuQue-with-Hexo" class="headerlink" title="Sync YuQue with Hexo"></a>Sync YuQue with Hexo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g yuque-hexo</span><br></pre></td></tr></table></figure>
+<p><a name="dhV06"></a></p>
+<h3 id="Add-the-YuQue-config-to-the-package-json"><a href="#Add-the-YuQue-config-to-the-package-json" class="headerlink" title="Add the YuQue config to the package.json"></a>Add the YuQue config to the package.json</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;yuqueConfig&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;baseUrl&quot;</span>: <span class="string">&quot;https://www.yuque.com/api/v2&quot;</span>,</span><br><span class="line">  <span class="string">&quot;login&quot;</span>: <span class="string">&quot;geekdanny&quot;</span>,</span><br><span class="line">  <span class="string">&quot;repo&quot;</span>: <span class="string">&quot;hexo&quot;</span>,</span><br><span class="line">  <span class="string">&quot;mdNameFormat&quot;</span>: <span class="string">&quot;title&quot;</span>,</span><br><span class="line">  <span class="string">&quot;postPath&quot;</span>: <span class="string">&quot;source/_posts/yuque&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Staring 2021, Github requested the user to use Personal acces token. The original username and password authentication is not supported.</p>
+<h2 id="Step-by-Step-Guide-to-Changing-your-GitHub-Remote-Authentication-from-Password-to-Personal-Access-Token"><a href="#Step-by-Step-Guide-to-Changing-your-GitHub-Remote-Authentication-from-Password-to-Personal-Access-Token" class="headerlink" title="Step-by-Step Guide to Changing your GitHub Remote Authentication from Password to Personal Access Token"></a>Step-by-Step Guide to Changing your GitHub Remote Authentication from Password to Personal Access Token</h2><ol>
+<li><strong>Go to</strong> <a target="_blank" rel="noopener" href="https://github.com/settings/tokens"><strong>https://github.com/settings/tokens</strong></a> and Log In</li>
+<li><strong>Click “Generate new token”</strong>, and then confirm your password</li>
+</ol>
+<p><img src="https://miro.medium.com/max/1400/1*J-HyZrYsdUpUjCxqqW5MUQ.png" alt="img"></p>
+<ol start="3">
+<li><strong>Add a token name</strong> (you can use a naming convention to help keep track of who has which token if you like) <strong>and select your desired scopes/permissions</strong>. Basic repo read/write access can be achieved by simply checking the <strong>repo</strong> box (see below).</li>
+</ol>
+<p><img src="https://miro.medium.com/max/1400/1*k670owFzCI1QAwMTjjidqA.png" alt="img"></p>
+<ol start="4">
+<li>Scroll down and <strong>click “Generate token”</strong>.</li>
+</ol>
+<p><img src="https://miro.medium.com/max/1400/1*cyFQkKXZjNBAwd1Kg_1DKw.png" alt="img"></p>
+<ol start="5">
+<li><strong>Copy the token</strong> itself by clicking the blue clipboard. Keep this private! Do not share this token with anyone you don’t want to have access to your repo (I have included the full token in this example for demonstration purposes but I deleted it afterward).</li>
+</ol>
+<p><img src="https://miro.medium.com/max/1400/1*UYbumN0g7imzGMN5IfXQbQ.png" alt="img"></p>
+<ol start="6">
+<li><p>Now change your remote locally. Fire up your local terminal and <code>cd</code> into your local repo directory. Note: if you need to <strong>remove the old remote</strong> do so now; for example, run a <code>git remote remove origin</code> to remove the <code>origin</code> remote.</p>
+</li>
+<li><p><strong>Add your new remote</strong> in the following format:<br><code>git remote add origin https://&lt;TOKEN&gt;@github.com/&lt;USERNAME&gt;/&lt;REPO&gt;.git</code></p>
+</li>
+</ol>
+<p>In my case: https://<Perosnal Access Token>@github.com/geekdanny/hexo.git</p>
+<ol start="8">
+<li>Now <strong>run</strong> <code>**git remote -v**</code> and you should see something like this:</li>
+</ol>
+<p><img src="https://miro.medium.com/max/1400/1*XYR2kggDxUEqd3V33SCHHA.png" alt="img"></p>
+<p>That’s it! Now try <strong>pushing a test commit</strong> to ensuring everything is working correctly, and the GitHub warnings should stop.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://broadgeek.com">Danny S.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://broadgeek.com/2019/12/30/3803/">https://broadgeek.com/2019/12/30/3803/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://broadgeek.com" target="_blank">极客丹尼</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/Yuque/">Yuque</a><a class="post-meta__tags" href="/tags/Mac/">Mac</a></div><div class="post_share"><div class="social-share" data-image="http://5b0988e595225.cdn.sohucs.com/images/20191217/7658e44c492249c39abe8d0856e4394d.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/12/30/f2b0/"><img class="prev-cover" src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/PlGbPd.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring 全家桶 10 Days - Day 1 Spring 家族的主要成员</div></div></a></div><div class="next-post pull-right"><a href="/2019/12/29/7e78/"><img class="next-cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/SfzndZ.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">GoDaddy with Github Pages</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/05/928a/" title="添加访客地图"><img class="cover" src="https://s2.loli.net/2021/12/06/7jRvAZm8FWGEuHy.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-12-05</div><div class="title">添加访客地图</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Danny S.</div><div class="author-info__description">白羊男子 指尖微凉<br> 一半明媚 一半忧伤</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg"><i class="fab fa-weixin"></i><span>微信</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/geekdanny" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dhrsongcs@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">每天进步一点点</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Use-Upic-to-Upload-to-the-Image-Bed"><span class="toc-number">1.</span> <span class="toc-text">Use Upic to Upload to the Image Bed</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-Image-Bed-on-the-Github"><span class="toc-number">1.1.</span> <span class="toc-text">Setup Image Bed on the Github</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Prepare-Hexo-Env"><span class="toc-number">2.</span> <span class="toc-text">Prepare Hexo Env</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Install-Node"><span class="toc-number">2.1.</span> <span class="toc-text">Install Node</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-nvm-via-brew"><span class="toc-number">2.1.1.</span> <span class="toc-text">Install nvm via brew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#To-see-what-Node-versions-are-available-to-install-run"><span class="toc-number">2.1.2.</span> <span class="toc-text">To see what Node versions are available to install run</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-the-LTS"><span class="toc-number">2.1.3.</span> <span class="toc-text">Install the LTS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swith-between-different-node-versions"><span class="toc-number">2.1.4.</span> <span class="toc-text">Swith between different node versions</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Add-SSH-keys-for-the-Github-repo"><span class="toc-number">3.</span> <span class="toc-text">Add SSH keys for the Github repo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-SSh-keys"><span class="toc-number">3.1.</span> <span class="toc-text">Generate SSh keys</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-your-SSH-key-to-the-ssh-agent"><span class="toc-number">3.1.1.</span> <span class="toc-text">Adding your SSH key to the ssh-agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Copy-the-SSH-key-to-your-clipboard"><span class="toc-number">3.2.</span> <span class="toc-text">Copy the SSH key to your clipboard</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Checkout-Hexo-Blog-Repo"><span class="toc-number">4.</span> <span class="toc-text">Checkout Hexo Blog Repo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Install-Hexo-on-Mac"><span class="toc-number">5.</span> <span class="toc-text">Install Hexo on Mac</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Add-Butterfly-Theme-Specific-Dependencies"><span class="toc-number">5.1.</span> <span class="toc-text">Add Butterfly Theme Specific Dependencies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sync-YuQue-with-Hexo"><span class="toc-number">5.2.</span> <span class="toc-text">Sync YuQue with Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-the-YuQue-config-to-the-package-json"><span class="toc-number">5.2.1.</span> <span class="toc-text">Add the YuQue config to the package.json</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Step-by-Step-Guide-to-Changing-your-GitHub-Remote-Authentication-from-Password-to-Personal-Access-Token"><span class="toc-number">5.3.</span> <span class="toc-text">Step-by-Step Guide to Changing your GitHub Remote Authentication from Password to Personal Access Token</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系"><img src="https://s2.loli.net/2022/04/21/JVjPkp1tIU8xmZ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C标准库 POSIX库 glibc库有什么关系"/></a><div class="content"><a class="title" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系">C标准库 POSIX库 glibc库有什么关系</a><time datetime="2022-04-20T19:56:32.000Z" title="更新于 2022-04-20 12:56:32">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/49da/" title="一些常见的国际标准化组织"><img src="https://s2.loli.net/2022/04/21/1wicXtVxAMlHZOf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些常见的国际标准化组织"/></a><div class="content"><a class="title" href="/2022/04/20/49da/" title="一些常见的国际标准化组织">一些常见的国际标准化组织</a><time datetime="2022-04-20T19:07:33.000Z" title="更新于 2022-04-20 12:07:33">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现"><img src="https://s2.loli.net/2021/12/13/f93YwJV1RTSMNbx.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="骁龙8Gen1 SoC 在ARMv9上的落地表现"/></a><div class="content"><a class="title" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现">骁龙8Gen1 SoC 在ARMv9上的落地表现</a><time datetime="2021-12-12T23:52:09.000Z" title="更新于 2021-12-12 15:52:09">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进"><img src="https://s2.loli.net/2021/12/13/ew5lOSUv6LWHtGr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ARMv9以及公版CPU有什么重大改进"/></a><div class="content"><a class="title" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进">ARMv9以及公版CPU有什么重大改进</a><time datetime="2021-12-12T18:04:13.000Z" title="更新于 2021-12-12 10:04:13">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/11/17d7/" title="移动GPU测试那些事"><img src="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="移动GPU测试那些事"/></a><div class="content"><a class="title" href="/2021/12/11/17d7/" title="移动GPU测试那些事">移动GPU测试那些事</a><time datetime="2021-12-11T18:38:27.000Z" title="更新于 2021-12-11 10:38:27">2021-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background: black"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Danny S.</div><div class="footer_custom_text">回忆是一种重逢 遗忘是一种自由</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '680c63616574c46feb6f',
+      clientSecret: '6ae95fb865944251ddd1751dd0d7e445aeddd831',
+      repo: 'geek-comments',
+      owner: 'geekdanny',
+      admin: ['geekdanny'],
+      id: 'e5cca0762eafc5e2f3da2b0af3a36ed9',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const findTrueUrl = (array) => {
+    Promise.all(array.map(item =>
+      fetch(item.url).then(resp => resp.json()).then(data => {
+        const urlArray = data.body.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ig)
+        if (data.user.login === 'utterances-bot') {
+          return urlArray.pop()
+        } else {
+          return urlArray.shift()
+        }
+      })
+    )).then(res => {
+        array = array.map((i,index)=> {
+          return {
+            ...i,
+            url: res[index]
+          }
+        })
+
+        saveToLocal.set('github-newest-comments', JSON.stringify(array), 10/(60*24))
+        generateHtml(array)
+    });
+  }
+
+  const getComment = () => {
+    fetch('https://api.github.com/repos/geekdanny/geek-comments/issues/comments?sort=updated&direction=desc&per_page=6&page=1',{
+      "headers": {
+        Accept: 'application/vnd.github.v3.html+json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const githubArray = data.map(item => {
+          return {
+            'avatar': item.user.avatar_url,
+            'content': changeContent(item.body_html),
+            'nick': item.user.login,
+            'url': item.issue_url,
+            'date': item.updated_at,
+            'githubUrl': item.html_url
+          }
+        })
+        findTrueUrl(githubArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('github-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="4900141628" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.9}});</script></body></html>

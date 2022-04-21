@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>极客丹尼</title>
+  <icon>https://broadgeek.com/icon.png</icon>
+  <subtitle>每天进步一点</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://broadgeek.com/"/>
+  <updated>2022-04-20T19:56:32.000Z</updated>
+  <id>https://broadgeek.com/</id>
+  
+  <author>
+    <name>Danny S.</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C标准库 POSIX库 glibc库有什么关系</title>
+    <link href="https://broadgeek.com/2022/04/20/5398/"/>
+    <id>https://broadgeek.com/2022/04/20/5398/</id>
+    <published>2022-04-20T19:56:32.000Z</published>
+    <updated>2022-04-20T19:56:32.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;C-标准函数库（C-standard-library，缩写：libc）&quot;&gt;&lt;a href=&quot;#C-标准函数库（C-standard-library，缩写：libc）&quot; class=&quot;headerlink&quot; title=&quot;C 标准函数库（C standard
+        
+      
+    
+    </summary>
+    
+    
+      <category term="编程技术" scheme="https://broadgeek.com/categories/%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="C/C++" scheme="https://broadgeek.com/tags/C-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一些常见的国际标准化组织</title>
+    <link href="https://broadgeek.com/2022/04/20/49da/"/>
+    <id>https://broadgeek.com/2022/04/20/49da/</id>
+    <published>2022-04-20T19:07:33.000Z</published>
+    <updated>2022-04-20T19:07:33.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;ITU-International-Telecommunication-Union&quot;&gt;&lt;a href=&quot;#ITU-International-Telecommunication-Union&quot; class=&quot;headerlink&quot; title=&quot;ITU
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="组织和协议" scheme="https://broadgeek.com/tags/%E7%BB%84%E7%BB%87%E5%92%8C%E5%8D%8F%E8%AE%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>骁龙8Gen1 SoC 在ARMv9上的落地表现</title>
+    <link href="https://broadgeek.com/2021/12/12/dd3a/"/>
+    <id>https://broadgeek.com/2021/12/12/dd3a/</id>
+    <published>2021-12-12T23:52:09.000Z</published>
+    <updated>2021-12-12T23:52:09.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前不久，高通发布了骁龙8Gen1 SoC。也是骁龙第一款采用ARMv9架构的芯片。虽然ARM官方声称ARMv9的新架构带来了性能收益，但是，一个采用了ARM
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="芯片" scheme="https://broadgeek.com/tags/%E8%8A%AF%E7%89%87/"/>
+    
+      <category term="高通" scheme="https://broadgeek.com/tags/%E9%AB%98%E9%80%9A/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ARMv9以及公版CPU有什么重大改进</title>
+    <link href="https://broadgeek.com/2021/12/12/c8bf/"/>
+    <id>https://broadgeek.com/2021/12/12/c8bf/</id>
+    <published>2021-12-12T18:04:13.000Z</published>
+    <updated>2021-12-12T18:04:13.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;ARM v9 是继v8发布后十年来的一次重要的指令集的升级，我之前写过一篇&lt;a href=&quot;https://broadgeek.com/2021/11/21/d179/&quot;&gt;《ARM 架构家族史》&lt;/a&gt;，ARM
+        
+      
+    
+    </summary>
+    
+    
+      <category term="芯片知识" scheme="https://broadgeek.com/categories/%E8%8A%AF%E7%89%87%E7%9F%A5%E8%AF%86/"/>
+    
+    
+      <category term="ARM" scheme="https://broadgeek.com/tags/ARM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动GPU测试那些事</title>
+    <link href="https://broadgeek.com/2021/12/11/17d7/"/>
+    <id>https://broadgeek.com/2021/12/11/17d7/</id>
+    <published>2021-12-11T18:38:27.000Z</published>
+    <updated>2021-12-11T18:38:27.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;本文主要内容转自知乎&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="GPU" scheme="https://broadgeek.com/tags/GPU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GPU 计算的发展历程</title>
+    <link href="https://broadgeek.com/2021/12/09/a42f/"/>
+    <id>https://broadgeek.com/2021/12/09/a42f/</id>
+    <published>2021-12-09T21:06:24.000Z</published>
+    <updated>2021-12-09T21:06:24.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;人类似乎对计算有着天然的追求，几乎所有的自然语言 都至少有“1”和“2”的数字概念。文明史其实也是一部计算的历史，人类总是在追求更强的计算能力。公元前 3000 年古巴比伦就发明了算盘，1822 年查尔斯·巴贝奇设计出第一台机械计算机。1936
+        
+      
+    
+    </summary>
+    
+    
+      <category term="图形技术" scheme="https://broadgeek.com/categories/%E5%9B%BE%E5%BD%A2%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="GPU" scheme="https://broadgeek.com/tags/GPU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>添加访客地图</title>
+    <link href="https://broadgeek.com/2021/12/05/928a/"/>
+    <id>https://broadgeek.com/2021/12/05/928a/</id>
+    <published>2021-12-05T18:39:41.000Z</published>
+    <updated>2021-12-05T18:39:41.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前往 clustrmaps 网站注册一个帐号。找到 Free Tools下面的 Website Widget, 点击 Get Map Widget。输入你的博客网址，点击Next。根据你自己的喜好选择样式Map widget 或 Globe
+        
+      
+    
+    </summary>
+    
+    
+      <category term="工程工具" scheme="https://broadgeek.com/categories/%E5%B7%A5%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Hexo" scheme="https://broadgeek.com/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>华为麒麟解漫画为你解读数字信号的“速算家</title>
+    <link href="https://broadgeek.com/2021/12/04/eeae/"/>
+    <id>https://broadgeek.com/2021/12/04/eeae/</id>
+    <published>2021-12-04T21:08:43.000Z</published>
+    <updated>2021-12-04T21:08:43.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;今天看到一篇非常好的关于DSP的科普文。SoC厂商很少把DSP芯片作为卖点，但是DSP又是一个特别重要的IP。今天转一篇关于DSP的漫画科普文。原文出处应该来自华为的麒麟。但是本文转自：&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="DSP" scheme="https://broadgeek.com/tags/DSP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021 5G手机基带射频全景图</title>
+    <link href="https://broadgeek.com/2021/12/03/7de8/"/>
+    <id>https://broadgeek.com/2021/12/03/7de8/</id>
+    <published>2021-12-04T01:44:16.000Z</published>
+    <updated>2021-12-04T01:44:16.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;今天看到平安证券投资公司在2020年发布的一份《5G手机全景图之基带射频篇》报告，如今已经是2021年底。今天回头看这份报告，虽然觉得有部分出入，但是依然觉得这份报告当时的整体的分析和预期是非常精准。今天拿出来，做一些围绕2021年的数据的修正和重新解读。这份报告发出的时候
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="5G" scheme="https://broadgeek.com/tags/5G/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2022 手机终端芯片竞品对比</title>
+    <link href="https://broadgeek.com/2021/12/01/e774/"/>
+    <id>https://broadgeek.com/2021/12/01/e774/</id>
+    <published>2021-12-02T01:44:09.000Z</published>
+    <updated>2021-12-02T01:44:09.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在天玑9000芯片发布不到两周，高通昨天发布了&lt;strong&gt;Snapdragon 8 Gen1&lt;/strong&gt;, 命名上没有继承上一代888+的规范。采用三星 4nm 工艺，CPU 性能提升 20%，GPU 提升 30%，搭载全新 X65
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="竞品分析" scheme="https://broadgeek.com/tags/%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>全世界最大半导体公司2022版</title>
+    <link href="https://broadgeek.com/2021/11/22/d6af/"/>
+    <id>https://broadgeek.com/2021/11/22/d6af/</id>
+    <published>2021-11-22T23:25:42.000Z</published>
+    <updated>2021-11-22T23:25:42.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;主要分为四类（集成器件制造商，无晶圆厂供应商，晶圆代工厂，虚拟元件供应商）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;集成器件制造商&lt;/strong&gt;：指不仅设计和销售微芯片，也运营自己的晶圆生产线。例如：Intel，三星，东芝，意法半导体，英飞凌和恩智浦半导体。&lt;/li&gt;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="半导体行业" scheme="https://broadgeek.com/tags/%E5%8D%8A%E5%AF%BC%E4%BD%93%E8%A1%8C%E4%B8%9A/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>全球十大晶圆代工企业</title>
+    <link href="https://broadgeek.com/2021/11/22/7b14/"/>
+    <id>https://broadgeek.com/2021/11/22/7b14/</id>
+    <published>2021-11-22T23:03:20.000Z</published>
+    <updated>2021-11-22T23:03:20.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;台积电&quot;&gt;&lt;a href=&quot;#台积电&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="科技观察" scheme="https://broadgeek.com/categories/%E7%A7%91%E6%8A%80%E8%A7%82%E5%AF%9F/"/>
+    
+    
+      <category term="晶元代工厂" scheme="https://broadgeek.com/tags/%E6%99%B6%E5%85%83%E4%BB%A3%E5%B7%A5%E5%8E%82/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ARM 架构家族史</title>
+    <link href="https://broadgeek.com/2021/11/21/d179/"/>
+    <id>https://broadgeek.com/2021/11/21/d179/</id>
+    <published>2021-11-22T00:30:59.000Z</published>
+    <updated>2021-11-22T00:30:59.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="芯片知识" scheme="https://broadgeek.com/categories/%E8%8A%AF%E7%89%87%E7%9F%A5%E8%AF%86/"/>
+    
+    
+      <category term="ARM" scheme="https://broadgeek.com/tags/ARM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何用GitHub和Gitbook写书</title>
+    <link href="https://broadgeek.com/2021/11/21/66d6/"/>
+    <id>https://broadgeek.com/2021/11/21/66d6/</id>
+    <published>2021-11-21T18:20:20.000Z</published>
+    <updated>2021-11-21T18:20:20.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;第一步-在Github中建立一个仓库-并创建好书的目录&quot;&gt;&lt;a href=&quot;#第一步-在Github中建立一个仓库-并创建好书的目录&quot; class=&quot;headerlink&quot; title=&quot;第一步: 在Github中建立一个仓库,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="工程工具" scheme="https://broadgeek.com/categories/%E5%B7%A5%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Gitbook" scheme="https://broadgeek.com/tags/Gitbook/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>芯片里那些傻傻分不清的物理单位和指标</title>
+    <link href="https://broadgeek.com/2021/11/20/9614/"/>
+    <id>https://broadgeek.com/2021/11/20/9614/</id>
+    <published>2021-11-20T18:04:02.000Z</published>
+    <updated>2021-11-20T18:04:02.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;问题背景&quot;&gt;&lt;a href=&quot;#问题背景&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="芯片知识" scheme="https://broadgeek.com/categories/%E8%8A%AF%E7%89%87%E7%9F%A5%E8%AF%86/"/>
+    
+    
+      <category term="芯片" scheme="https://broadgeek.com/tags/%E8%8A%AF%E7%89%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形学入门第二课:向量与线性代数</title>
+    <link href="https://broadgeek.com/2021/11/11/4602/"/>
+    <id>https://broadgeek.com/2021/11/11/4602/</id>
+    <published>2021-11-11T20:19:58.000Z</published>
+    <updated>2021-11-11T20:19:58.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;图形学有个前置课程，就是线性代数。但是这门课的重点不是线性代数，我们以最快，最猛烈的的节奏将线性代数的重点迅速过一遍。线性代数并不难，这里假设你是个高中生哦，至少得懂数学方程吧。&lt;/p&gt;
+&lt;p&gt;本课程的学习课件来自&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="图形技术" scheme="https://broadgeek.com/categories/%E5%9B%BE%E5%BD%A2%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="图形学" scheme="https://broadgeek.com/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形学入门第一课:计算机图形学概述</title>
+    <link href="https://broadgeek.com/2021/11/11/3a27/"/>
+    <id>https://broadgeek.com/2021/11/11/3a27/</id>
+    <published>2021-11-11T20:05:56.000Z</published>
+    <updated>2021-11-11T20:05:56.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;本人计划从GPU开始，将用三个月时间带领大家学习图形学。本课程的主要目的是想把复杂的东西讲给小白，哪怕读者只是个中学生。&lt;/p&gt;
+&lt;p&gt;本课程的学习课件来自&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="图形技术" scheme="https://broadgeek.com/categories/%E5%9B%BE%E5%BD%A2%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="图形学" scheme="https://broadgeek.com/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解剖计算机构成的 39课入门</title>
+    <link href="https://broadgeek.com/2021/07/17/d0b3/"/>
+    <id>https://broadgeek.com/2021/07/17/d0b3/</id>
+    <published>2021-07-18T00:43:16.000Z</published>
+    <updated>2021-07-18T00:43:16.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;带你解剖计算机构成的 39课入门课成为大佬（视频分享，直得收藏）&lt;/p&gt;
+&lt;p&gt;视频下载链接&lt;br&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="课程学习" scheme="https://broadgeek.com/categories/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="计算机" scheme="https://broadgeek.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021年自我提升计划</title>
+    <link href="https://broadgeek.com/2021/04/04/89dc/"/>
+    <id>https://broadgeek.com/2021/04/04/89dc/</id>
+    <published>2021-04-05T05:09:24.000Z</published>
+    <updated>2021-04-05T05:09:24.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;读书计划&quot;&gt;&lt;a href=&quot;#读书计划&quot; class=&quot;headerlink&quot; title=&quot;读书计划&quot;&gt;&lt;/a&gt;读书计划&lt;/h1&gt;&lt;p&gt;2020 年实在是太特殊了，这一年里读过的书其实也不多，
+        
+      
+    
+    </summary>
+    
+    
+      <category term="能力提升" scheme="https://broadgeek.com/categories/%E8%83%BD%E5%8A%9B%E6%8F%90%E5%8D%87/"/>
+    
+    
+      <category term="读书计划" scheme="https://broadgeek.com/tags/%E8%AF%BB%E4%B9%A6%E8%AE%A1%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C++11 细节知识点</title>
+    <link href="https://broadgeek.com/2021/01/14/dc7f/"/>
+    <id>https://broadgeek.com/2021/01/14/dc7f/</id>
+    <published>2021-01-14T18:09:52.000Z</published>
+    <updated>2021-01-14T18:09:52.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Initializers&quot;&gt;&lt;a href=&quot;#Initializers&quot; class=&quot;headerlink&quot; title=&quot;Initializers&quot;&gt;&lt;/a&gt;Initializers&lt;/h1&gt;&lt;p&gt;4 ways to initialize
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="C++" scheme="https://broadgeek.com/tags/C/"/>
+    
+  </entry>
+  
+</feed>

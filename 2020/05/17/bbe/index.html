@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>详解华为正在开发的操作系统 | 极客丹尼</title><meta name="keywords" content="华为,鸿蒙,方舟"><meta name="author" content="Danny S."><meta name="copyright" content="Danny S."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转文学城  读者按： 最近开始研究华为的系统，读了很多文章和代码，计划庖丁解牛的研究华为面临的问题。只有清晰的了解问题后，才可以对症下药。这篇文章有点意思，记录一下以做参考。  华为消费者业务总裁余承东在朋友圈说最快今年秋天，最晚明年春天，华为自己的操作系统（OS）将可能面市。华为的OS打通了手机、电脑、平板、电视、汽车、智能穿戴，统一成一个操作系统。且华为OS还兼容全部的安卓应用和所有的Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解华为正在开发的操作系统">
+<meta property="og:url" content="https://broadgeek.com/2020/05/17/bbe/index.html">
+<meta property="og:site_name" content="极客丹尼">
+<meta property="og:description" content="转文学城  读者按： 最近开始研究华为的系统，读了很多文章和代码，计划庖丁解牛的研究华为面临的问题。只有清晰的了解问题后，才可以对症下药。这篇文章有点意思，记录一下以做参考。  华为消费者业务总裁余承东在朋友圈说最快今年秋天，最晚明年春天，华为自己的操作系统（OS）将可能面市。华为的OS打通了手机、电脑、平板、电视、汽车、智能穿戴，统一成一个操作系统。且华为OS还兼容全部的安卓应用和所有的Web">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/geekdanny/images/master/blog/eqOGjt.png">
+<meta property="article:published_time" content="2020-05-17T21:44:20.000Z">
+<meta property="article:modified_time" content="2020-05-17T21:44:20.000Z">
+<meta property="article:author" content="Danny S.">
+<meta property="article:tag" content="华为">
+<meta property="article:tag" content="鸿蒙">
+<meta property="article:tag" content="方舟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/geekdanny/images/master/blog/eqOGjt.png"><link rel="shortcut icon" href="https://raw.githubusercontent.com/geekdanny/images/master/kirito.ico"><link rel="canonical" href="https://broadgeek.com/2020/05/17/bbe/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ma+Shan+Zheng" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '详解华为正在开发的操作系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2020-05-17 14:44:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="极客丹尼" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/geekdanny/images/master/blog/eqOGjt.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">极客丹尼</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">详解华为正在开发的操作系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-17T21:44:20.000Z" title="发表于 2020-05-17 14:44:20">2020-05-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-05-17T21:44:20.000Z" title="更新于 2020-05-17 14:44:20">2020-05-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="详解华为正在开发的操作系统"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>转文学城</p>
+</blockquote>
+<p>读者按： 最近开始研究华为的系统，读了很多文章和代码，计划庖丁解牛的研究华为面临的问题。只有清晰的了解问题后，才可以对症下药。这篇文章有点意思，记录一下以做参考。</p>
+<p><img src="https://raw.githubusercontent.com/geekdanny/images/master/blog/QayQoK.png" alt="QayQoK"></p>
+<p>华为消费者业务总裁余承东在朋友圈说最快今年秋天，最晚明年春天，华为自己的操作系统（OS）将可能面市。华为的OS打通了手机、电脑、平板、电视、汽车、智能穿戴，统一成一个操作系统。且华为OS还兼容全部的安卓应用和所有的Web应用，相关安卓应用在华为OS上重新编译后，运行性能提升将超过60%。</p>
+<p>据传这个操作系统叫鸿蒙。鸿蒙本意是中国神话中的在天地开辟之前，一团混沌的元气世界。很奇怪，为什么华为的OS叫鸿蒙。等待开辟？还是一团混沌？</p>
+<p>余承东别号余大嘴，朋友圈的话算不上正式发布，双重不靠谱。</p>
+<p>这位老总一定是把操作系统混同于华为宣传的方舟编译器了。以前华为宣布方舟编译器的终极目标，是推出一个跨平台、跨系统、跨设备多种语言的软件开发平台。操作系统包括的东东比一个编译平台多得多。工作量也大得多。能够跨系统写应用软件不等于一统江湖的跨设备的操作系统。</p>
+<p>根据华为公开的信息，鸿蒙是一个基于安卓的，集成了华为对安卓系统的既往优化的操作系统，包括EMUI5.0 优化，方舟编译平台， GC 优化，EROFS文件系统等等。但主框架仍然脱不了安卓或者Linux的操作系统。由于安卓和Linux都是开放的，这样做没有问题。它让人想起了2014年被收购的红旗Linux。</p>
+<p>当今手机操作系统领域，基本上是苹果和安卓的二分天下。苹果是先行者，谷歌是赶超者。先行者有先发优势。即使不开放，也能占领很大市场。安卓不同于苹果系统是它的开放性，它采用了跨平台操作的JAVA语言，支持不同硬件设备，环境对应用开发商开放。苹果手机使用自己的硬件，严格管控应用开发商。苹果的封闭环境，使它更易于高效，更容易优化，这就是为什么苹果手机使用规格较低的硬件还能让用户感受流畅的体验。谷歌为了培养生态系统，采用了开源的安卓，对效率和性能不得不有所牺牲。谷歌的开放，使很多新制造商（包括华为）可以快速进入智能手机领域。也使安卓的应用大量增加。据2017年年底统计，安卓的应用比苹果多了42%。全球范围内，安卓用户占86%，苹果用户占14%。</p>
+<p>手机操作系统的后发者，还有诺基亚的塞班，Palm的Palm OS和微软的window Phone，都是由于没有杀手锏以及生态圈没做好，惨遭淘汰。</p>
+<p>具体来说，安卓系统在两个性能上落后于苹果OS。一个是为了跨硬件操作，JAVA使用了虚拟机。功能是将各种硬件抽象成Java的运行环境，JAVA只管虚拟机。而虚拟机负责连接具体硬件。因此Java实现了跨平台——不管是X86，ARM，还是其他CPU的机器都没有问题。虚拟机里有一个解释器，将JAVA语言逐句翻译成硬件懂得的机器码。而苹果由于没有跨平台的问题，事先把整个程序编译成机器码，执行起来就快了。另一个瓶颈是安卓需要回收不再使用的内存，这个工作叫garbage collection （GC）。GC时，虚拟机要停止运行，判断哪些内存不再使用并释放。这个停顿会造成手机的卡顿。</p>
+<p>谷歌和其他安卓手机制造商，也在持续优化安卓，一方面是硬件提升。由于硬件越来越便宜，手机上的CPU增至8核，速度也增加了很多。内存也由几百M增加到8G。软件上，谷歌采用了JIT（Just In Time）编译。当系统发现程序内有一段代码频繁执行的时候，下次调用就不用重复解释，直接执行上次解释出的机器指令。虚拟机进化到ART（Android Run Time）后，采用了AOT编译器（Ahead Of Time），就是运行之前，将部分代码静态编译为机器码，极大地提升了效率。但对于那些Java动态特性的部分，还有其他部分，仍然做不到直接编译，还是要解释执行。GC方面谷歌也做了优化，将GC的频率和时间都减少了。综合效果是，如果你用的是一个比较新的手机，硬件配置属于中高端，安卓版本比较新，基本上感觉不到卡顿，运行比较流畅。</p>
+<p>当不能得到谷歌GMS授权后，华为如果能很快推出新手机操作系统，而且这个操作系统有革命性的创新，且性能大大领先于现有的安卓，就会成为一个大杀器，挽回流失的用户。但是作为后发者的华为进入手机操作系统领域，除了为培育生态圈，必须开源之外，还要有一些杀手锏。方舟编译器似乎就是是鸿蒙寄予深厚希望的一个杀手锏。华为宣称，方舟编译器可让系统操作流畅度提升24％，系统响应速度提升44％，第三方应用编译后流畅度可提升60％！是革命性的优化，全程执行机器码，高效运行应用，彻底解决安卓应用“边解释边执行”造成的低效率。</p>
+<p>根据目前公开的资料。方舟编译器不再使用Java的虚拟机，而是开发者在应用打包的时候就将所有程序，包括静态和动态的部分直接编译成机器指令。 这种编译会带来跨平台问题，java使用虚拟机解决的正是这个问题。方舟对跨平台问题的解决方法，是同时编译出所有硬件平台对应的机器码文件，之后在具体手机安装的时候选择针对当前硬件平台的机器码装入手机。因此会出现安装包容量大的问题（因为安装包包含所有硬件平台的二进制文件）。导致应用安装包和安装后的机器码占用空间增大。据估计，方舟编译器重新编译的安装包要比安卓大两三倍，手机安装后的机器码要大0.5-1倍。带来的问题是占用存贮和内存显著增加。用户下载安装包会消耗越来越多的时间和流量。这是一个用空间换取运行速度的策略。</p>
+<p>方舟编译器会有严重的生态问题。首先华为必须将编译器代码开放，让应用开发商免费下载。应用开发商将其已发布的应用重新编译，并再次对安卓的所有版本和所有硬件平台进行测试。改正Bug后，重新发布，在所有应用商店上架。这个工作必须让各个应用开发商自己做，华为不能代劳，因为由于安全原因，每个应用都要有开发者的签名。这基本上是一个不可能完成的任务。你可以在爱国情怀下忽悠国内的部分开发者，但不可能让全球的应用开发者来跟随。大多数的app开发商是中小规模的，甚至是个人，怎么可能有时间有精力开发编译测试如此多的版本？</p>
+<p>方舟编译器还有维护的困难。当新的非华为（高通，联发科等）硬件平台发布后，方舟编译器必须及时跟进，并将新版本推送给所有的开发商。随着越来越多新硬件的发布，方舟编译出的安装包势必会越来越大。用户下载安装包会消耗越来越多时间和流量。同时开发商编译时间会越来越长，需要测试的硬件会越来越多。</p>
+<p><img src="https://inews.gtimg.com/newsapp_match/0/10158083033/0" alt="img"></p>
+<p>这么大的麻烦换取的是最多44%的系统响应速度。而且这个提升很可能是在实验室特定条件下测得的。体现在用户感知上，很可能要大打折扣。根据用户感知测试，一般人对在0.2秒以下的速度提升没有感知。在这个区间，人的感知已经达到饱和。换句话说，把响应速度从0.2秒提升到0.1秒，大部分人感觉不到区别。据我的经验，目前中高端安卓手机的性能瓶颈不是CPU的处理速度， 更不在解释执行速度。 所以对这个方舟的优化，用户很可能无感。</p>
+<p>另一个华为宣传的对安卓的优化是内存垃圾回收（GC），从全局统一回收改变为随用随回收，回收时无需暂停应用，宣称消除了因内存回收的卡顿。但问题是，安卓自5.0版本以后，采用ART虚拟机，GC的次数和停顿时间已经大大改善，GC引起的卡顿几乎感知不到了。</p>
+<p><img src="https://raw.githubusercontent.com/geekdanny/images/master/blog/Q732on.png" alt="Q732on"></p>
+<p>最重要的是，华为这些对安卓的改善可以说都是工程方面的，没有技术的创新。消除JNI的开销,把Java和C在一起编译，来自于甲骨文的GraalVM和开源的LLVM；无需虚拟机类似于苹果swift语言的执行和谷歌的AOT；引用计数的垃圾回收也是业界已有的建议。所有的思路都是谷歌曾经想到的，但为了可移植性做的牺牲。</p>
+<p>谷歌也在对安卓优化，开发下一代操作系统。项目叫Fuchsia。 Fuchsia基于微内核架构，用于嵌入式系统，主要使用C语言和C++编写。Fuchsia的设计目标之一是可运行在众多的设备上，包括移动电话和个人计算机。</p>
+<p>比较谷歌和华为的操作系统，目标虽然相同。但谷歌的系统包含更多的技术创新，而华为的系统著重于工程集成。这反映了两个公司的区别。谷歌代表的是技术创新。而华为擅长的是工程能力，还需要更多的创新！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://broadgeek.com">Danny S.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://broadgeek.com/2020/05/17/bbe/">https://broadgeek.com/2020/05/17/bbe/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://broadgeek.com" target="_blank">极客丹尼</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%8E%E4%B8%BA/">华为</a><a class="post-meta__tags" href="/tags/%E9%B8%BF%E8%92%99/">鸿蒙</a><a class="post-meta__tags" href="/tags/%E6%96%B9%E8%88%9F/">方舟</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/geekdanny/images/master/blog/eqOGjt.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/05/18/156f/"><img class="prev-cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/06xuWt.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Understanding the Android Compilation Process</div></div></a></div><div class="next-post pull-right"><a href="/2020/05/17/b272/"><img class="next-cover" src="https://source.android.com/images/android_framework_details.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Android Architecture</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/05/23/e277/" title="2020 中美爆发芯片战争"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/kMSMLs.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2020-05-23</div><div class="title">2020 中美爆发芯片战争</div></div></a></div><div><a href="/2020/05/16/f2b1/" title="中国人的“芯病”何去何从"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/Y8Rzld.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2020-05-16</div><div class="title">中国人的“芯病”何去何从</div></div></a></div><div><a href="/2020/05/17/a204/" title="中芯国际获国家200亿注资，拟取代台积电曲线救华为"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/30GWcf.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2020-05-17</div><div class="title">中芯国际获国家200亿注资，拟取代台积电曲线救华为</div></div></a></div><div><a href="/2020/05/17/7b8a/" title="美国封杀华为“断芯”升级 中国或砍苹果出气"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/YqpgBI.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2020-05-17</div><div class="title">美国封杀华为“断芯”升级 中国或砍苹果出气</div></div></a></div><div><a href="/2020/05/28/bda3/" title="如果失去华为，中国会怎样?"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/cORXK2.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2020-05-28</div><div class="title">如果失去华为，中国会怎样?</div></div></a></div><div><a href="/2020/05/17/2bbd/" title="美方完美封杀华为 特朗普打响中美贸易战2.0"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/9iVdMh.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2020-05-17</div><div class="title">美方完美封杀华为 特朗普打响中美贸易战2.0</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Danny S.</div><div class="author-info__description">白羊男子 指尖微凉<br> 一半明媚 一半忧伤</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg"><i class="fab fa-weixin"></i><span>微信</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/geekdanny" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dhrsongcs@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">每天进步一点点</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系"><img src="https://s2.loli.net/2022/04/21/JVjPkp1tIU8xmZ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C标准库 POSIX库 glibc库有什么关系"/></a><div class="content"><a class="title" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系">C标准库 POSIX库 glibc库有什么关系</a><time datetime="2022-04-20T19:56:32.000Z" title="更新于 2022-04-20 12:56:32">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/49da/" title="一些常见的国际标准化组织"><img src="https://s2.loli.net/2022/04/21/1wicXtVxAMlHZOf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些常见的国际标准化组织"/></a><div class="content"><a class="title" href="/2022/04/20/49da/" title="一些常见的国际标准化组织">一些常见的国际标准化组织</a><time datetime="2022-04-20T19:07:33.000Z" title="更新于 2022-04-20 12:07:33">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现"><img src="https://s2.loli.net/2021/12/13/f93YwJV1RTSMNbx.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="骁龙8Gen1 SoC 在ARMv9上的落地表现"/></a><div class="content"><a class="title" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现">骁龙8Gen1 SoC 在ARMv9上的落地表现</a><time datetime="2021-12-12T23:52:09.000Z" title="更新于 2021-12-12 15:52:09">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进"><img src="https://s2.loli.net/2021/12/13/ew5lOSUv6LWHtGr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ARMv9以及公版CPU有什么重大改进"/></a><div class="content"><a class="title" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进">ARMv9以及公版CPU有什么重大改进</a><time datetime="2021-12-12T18:04:13.000Z" title="更新于 2021-12-12 10:04:13">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/11/17d7/" title="移动GPU测试那些事"><img src="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="移动GPU测试那些事"/></a><div class="content"><a class="title" href="/2021/12/11/17d7/" title="移动GPU测试那些事">移动GPU测试那些事</a><time datetime="2021-12-11T18:38:27.000Z" title="更新于 2021-12-11 10:38:27">2021-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background: black"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Danny S.</div><div class="footer_custom_text">回忆是一种重逢 遗忘是一种自由</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '680c63616574c46feb6f',
+      clientSecret: '6ae95fb865944251ddd1751dd0d7e445aeddd831',
+      repo: 'geek-comments',
+      owner: 'geekdanny',
+      admin: ['geekdanny'],
+      id: '3a16ec153d1bc78cdc7c86ba3f0ac000',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const findTrueUrl = (array) => {
+    Promise.all(array.map(item =>
+      fetch(item.url).then(resp => resp.json()).then(data => {
+        const urlArray = data.body.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ig)
+        if (data.user.login === 'utterances-bot') {
+          return urlArray.pop()
+        } else {
+          return urlArray.shift()
+        }
+      })
+    )).then(res => {
+        array = array.map((i,index)=> {
+          return {
+            ...i,
+            url: res[index]
+          }
+        })
+
+        saveToLocal.set('github-newest-comments', JSON.stringify(array), 10/(60*24))
+        generateHtml(array)
+    });
+  }
+
+  const getComment = () => {
+    fetch('https://api.github.com/repos/geekdanny/geek-comments/issues/comments?sort=updated&direction=desc&per_page=6&page=1',{
+      "headers": {
+        Accept: 'application/vnd.github.v3.html+json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const githubArray = data.map(item => {
+          return {
+            'avatar': item.user.avatar_url,
+            'content': changeContent(item.body_html),
+            'nick': item.user.login,
+            'url': item.issue_url,
+            'date': item.updated_at,
+            'githubUrl': item.html_url
+          }
+        })
+        findTrueUrl(githubArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('github-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="4900141628" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.9}});</script></body></html>

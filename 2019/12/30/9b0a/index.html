@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>详解Spring全家桶7大知识点 | 极客丹尼</title><meta name="keywords" content="Spring,Springboot"><meta name="author" content="Danny S."><meta name="copyright" content="Danny S."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Spring框架自诞生以来一直备受开发者青睐，有人亲切的称之为：Spring 全家桶。它包括SpringMVC、SpringBoot、Spring Cloud、Spring Cloud Dataflow等解决方案。很多研发人员把spring看作心目中最好的java项目，没有之一。所以这是重点也是难点，工作中必须会，面试时肯定考。 那么，今天花费10分钟，梳理Spring框架相关知识。 Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解Spring全家桶7大知识点">
+<meta property="og:url" content="https://broadgeek.com/2019/12/30/9b0a/index.html">
+<meta property="og:site_name" content="极客丹尼">
+<meta property="og:description" content="Spring框架自诞生以来一直备受开发者青睐，有人亲切的称之为：Spring 全家桶。它包括SpringMVC、SpringBoot、Spring Cloud、Spring Cloud Dataflow等解决方案。很多研发人员把spring看作心目中最好的java项目，没有之一。所以这是重点也是难点，工作中必须会，面试时肯定考。 那么，今天花费10分钟，梳理Spring框架相关知识。 Spring">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i2.wp.com/www.e4developer.com/wp-content/uploads/2018/08/spring-boot-best-practices.png">
+<meta property="article:published_time" content="2019-12-31T03:35:19.000Z">
+<meta property="article:modified_time" content="2019-12-31T03:35:19.000Z">
+<meta property="article:author" content="Danny S.">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Springboot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i2.wp.com/www.e4developer.com/wp-content/uploads/2018/08/spring-boot-best-practices.png"><link rel="shortcut icon" href="https://raw.githubusercontent.com/geekdanny/images/master/kirito.ico"><link rel="canonical" href="https://broadgeek.com/2019/12/30/9b0a/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ma+Shan+Zheng" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '详解Spring全家桶7大知识点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-12-30 19:35:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="极客丹尼" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i2.wp.com/www.e4developer.com/wp-content/uploads/2018/08/spring-boot-best-practices.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">极客丹尼</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">详解Spring全家桶7大知识点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-12-31T03:35:19.000Z" title="发表于 2019-12-30 19:35:19">2019-12-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-12-31T03:35:19.000Z" title="更新于 2019-12-30 19:35:19">2019-12-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="详解Spring全家桶7大知识点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Spring框架自诞生以来一直备受开发者青睐，有人亲切的称之为：Spring 全家桶。它包括SpringMVC、SpringBoot、Spring Cloud、Spring Cloud Dataflow等解决方案。<br>很多研发人员把spring看作心目中最好的java项目，没有之一。<br>所以这是重点也是难点，工作中必须会，面试时肯定考。</p>
+<p><strong>那么，今天花费10分钟，梳理Spring框架相关知识。</strong></p>
+<h1 id="Spring知识点-汇总"><a href="#Spring知识点-汇总" class="headerlink" title="Spring知识点-汇总"></a>Spring知识点-汇总</h1><p>spring系列包含非常多的项目，可以满足java开发中的方方面面。先来看常用框架的知识点汇总，如图：<br><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/vaNdQc.jpg" alt=""></p>
+<h1 id="一、5个常用的spring框架"><a href="#一、5个常用的spring框架" class="headerlink" title="一、5个常用的spring框架"></a><strong>一、5个常用的spring框架</strong></h1><h2 id="spring-framework"><a href="#spring-framework" class="headerlink" title="spring framework"></a>spring framework</h2><p>也就是我们经常说的spring框架，包括了ioc依赖注入，Context上下文、bean管理、springmvc等众多功能模块，其它spring项目比如spring boot也会依赖spring框架。</p>
+<h2 id="spring-boot"><a href="#spring-boot" class="headerlink" title="spring boot"></a>spring boot</h2><p>它的目标是简化Spring应用和服务的创建、开发与部署，简化了配置文件，使用嵌入式web服务器，含有诸多开箱即用的微服务功能，可以和spring cloud联合部署。<br />Spring Boot的核心思想是约定大于配置，应用只需要很少的配置即可，简化了应用开发模式。</p>
+<h2 id="Spring-Data"><a href="#Spring-Data" class="headerlink" title="Spring Data"></a>Spring Data</h2><p>是一个数据访问及操作的工具集，封装了多种数据源的操作能力，包括：jdbc、Redis、MongoDB等。</p>
+<h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>是一套完整的微服务解决方案，是一系列不同功能的微服务框架的集合。Spring Cloud基于Spring Boot，简化了分布式系统的开发，集成了服务发现、配置管理、消息总线、负载均衡、断路器、数据监控等各种服务治理能力。比如sleuth提供了全链路追踪能力，Netflix套件提供了hystrix熔断器、zuul网关等众多的治理组件。config组件提供了动态配置能力，bus组件支持使用RabbitMQ、kafka、Activemq等消息队列，实现分布式服务之间的事件通信。</p>
+<h2 id="Spring-Security"><a href="#Spring-Security" class="headerlink" title="Spring Security"></a>Spring Security</h2><p>主要用于快速构建安全的应用程序和服务，在Spring Boot和Spring Security OAuth2的基础上，可以快速实现常见安全模型，如单点登录，令牌中继和令牌交换。你可以了解一下oauth2授权机制和jwt认证方式。oauth2是一种授权机制，规定了完备的授权、认证流程。JWT全称是JSON Web Token，是一种把认证信息包含在token中的认证实现，oauth2授权机制中就可以应用jwt来作为认证的具体实现方法。</p>
+<h1 id="二、Struts的具体作用"><a href="#二、Struts的具体作用" class="headerlink" title="二、Struts的具体作用"></a>二、Struts的具体作用</h1><p>struts是曾经非常火爆的web组合ssh中的控制层。我们知道web服务一般都采用MVC分层模型构建，就是model层负责内部数据模型，controller负责请求的分发控制，view层负责返回给用户展示的视图。struts实现的就是其中控制层的角色。<br />Struts采用Filter实现，针对类进行拦截，每次请求就会创建一个Action。使用struts的SSH组合已经逐渐被使用springMVC的SSM组合代替，也就是Spring-MVC+Spring+MyBatis的组合，一方面原因是由于struts对几次安全漏洞的处理，让大家对struts的信心受到影响；另一方面，springmvc更加的灵活，不需要额外配置，不存在和spring整合等问题，使用更加方便，所以建议以SSM框架的学习为主。</p>
+<h1 id="三、常用的ORM框架"><a href="#三、常用的ORM框架" class="headerlink" title="三、常用的ORM框架"></a>三、常用的ORM框架</h1><p>ORM就是对象关系匹配，是为了解决面向对象与关系数据库存在的互不匹配的问题。简单来说，就是把关系数据库中的数据转换成面向对象程序中的对象。<br />常用的ORM框架有Hibernate和MyBatis，也就是ssh组合和ssm组合中的h与m。<br /><strong>它们的特点和区别如下：</strong><br />Hibernate对数据库结构提供了完整的封装，实现了POJO对象与数据库表之间的映射，能够自动生成并执行SQL语句。只要定义了POJO 到数据库表的映射关系，就可以通过Hibernate提供的方法完成数据库操作。Hibernate符合JPA规范，就是Java持久层API。<br />mybatis通过映射配置文件，将SQL所需的参数和返回的结果字段映射到指定对象，mybatis不会自动生成sql，需要自己定义sql语句，不过更方便对sql语句进行优化。<br />总结起来：</p>
+<ol>
+<li>hibernate配置要比mybatis复杂的多，学习成本也比mybatis高。mybatis，简单、高效、灵活，但是需要自己维护sql；</li>
+<li>hibernate功能强大、全自动、适配不同数据库，但是非常复杂，灵活性稍差。</li>
+</ol>
+<h1 id="四、Netty简介"><a href="#四、Netty简介" class="headerlink" title="四、Netty简介"></a>四、Netty简介</h1><p>Netty是一个高性能的异步事件驱动的网络通信框架，Netty对JDK原生NIO进行封装，简化了网络服务的开发。下文会详细讲解<br />另外，同类型的框架还有mina、grizzly，不过目前使用的相对较少，一般不会在面试中出现，可以作为兴趣简单了解。</p>
+<h1 id="五、RPC服务"><a href="#五、RPC服务" class="headerlink" title="五、RPC服务"></a>五、RPC服务</h1><p>Motan、Dubbo、gRPC都是比较常用的高性能rpc框架，可以提供完善的服务治理能力，java版本的通信层都是基于前面提到的Netty实现。它们的特点稍后介绍。</p>
+<h1 id="六、其他常用框架"><a href="#六、其他常用框架" class="headerlink" title="六、其他常用框架"></a>六、其他常用框架</h1><p>jersy和restEasy都是可以快速开发restful服务的框架。<br />和springmvc相比，这两个框架都是基于jax-rs标准，而springmvcs基于servlet，使用自己构建的API，是两个不同的标准。<br />shiro框架是一个与spring security类似的开源的权限管理框架，用于访问授权、认证、加密及会话管理。能够支持单机与分布式session管理。<br />相比security，shiro更加简单易用。</p>
+<p><strong>本篇文章将重点阐述Spring相关知识点，其他框架请期待下一篇</strong></p>
+<h1 id="Spring知识点-详解"><a href="#Spring知识点-详解" class="headerlink" title="Spring知识点-详解"></a>Spring知识点-详解</h1><h2 id="一、spring基本概念"><a href="#一、spring基本概念" class="headerlink" title="一、spring基本概念"></a>一、spring基本概念</h2><p><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/PsImmN.jpg" alt="PsImmN"><br>Sping中的基本概念<br />本文涉及的流程与实现默认都是基于最新的5.x版本。<br />spring中的几个重要概念如下：</p>
+<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>IOC，就是控制反转，如最左边，拿公司招聘岗位来举例：<br />假设一个公司有产品、研发、测试等岗位。如果是公司根据岗位要求，逐个安排人选，如图中向下的箭头，这是正向流程。如果反过来，不用公司来安排候选人，而是由第三方猎头来匹配岗位和候选人，然后进行推荐，如图中向上的箭头，这就是控制反转。<br />在spring中，对象的属性是由对象自己创建的，就是正向流程；如果属性不是对象创建，而是由spring来自动进行装配，就是控制反转。这里的DI也就是依赖注入，就是实现控制反转的方式。正向流程导致了对象于对象之间的高耦合，IOC可以解决对象耦合的问题，有利于功能的复用，能够使程序的结构变得非常灵活。</p>
+<h3 id="context上下文和bean"><a href="#context上下文和bean" class="headerlink" title="context上下文和bean"></a>context上下文和bean</h3><p>spring进行IOC实现时使用的有两个概念：context上下文和bean。<br />如中间图所示，所有被spring管理的、由spring创建的、用于依赖注入的对象，就叫做一个bean。Spring创建并完成依赖注入后，所有bean统一放在一个叫做context的上下文中进行管理。</p>
+<h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>AOP就是面向切面编程。如右面的图，一般程序执行流程是从controller层调用service层、然后service层调用DAO层访问数据，最后在逐层返回结果。<br />这个是图中向下箭头所示的按程序执行顺序的纵向处理。但是，一个系统中会有多个不同的服务，例如用户服务、商品信息服务等等，每个服务的controller层都需要验证参数，都需要处理异常，如果按照图中红色的部分，对不同服务的纵向处理流程进行横切，在每个切面上完成通用的功能，例如身份认证、验证参数、处理异常等等、这样就不用在每个服务中都写相同的逻辑了，这就是AOP思想解决的问题。<br />AOP以功能进行划分，对服务顺序执行流程中的不同位置进行横切，完成各服务共同需要实现的功能。</p>
+<h2 id="二、spring框架"><a href="#二、spring框架" class="headerlink" title="二、spring框架"></a>二、spring框架</h2><p><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/GCCqBa.jpg" alt="GCCqBa"><br>Spring框架组件<br>上图列出了spring框架主要包含的组件。这张图来自spring4.x的文档。目前最新的5.x版本中右面的portlet组件已经被废弃掉，同时增加了用于异步响应式处理的WebFlux组件。<br />并不需要对所有的组件都详细了解，只需重点了解最常用的几个组件实现，以及知道每个组件用来实现哪一类功能。<br />图中红框是比较重要的组件，core组件是spring所有组件的核心；bean组件和context组件我刚才提到了，是实现IOC和依赖注入的基础；AOP组件用来实现面向切面编程；web组件包括springmvc是web服务的控制层实现。</p>
+<h2 id="三、spring中机制和实现"><a href="#三、spring中机制和实现" class="headerlink" title="三、spring中机制和实现"></a>三、spring中机制和实现</h2><p><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/cMVJi5.jpg" alt="cMVJi5"></p>
+<h3 id="AOP-1"><a href="#AOP-1" class="headerlink" title="AOP"></a>AOP</h3><p>AOP的实现是通过代理模式，在调用对象的某个方法时，执行插入的切面逻辑。实现的方式有动态代理也叫运行时增强，比如jdk代理、CGLIB；静态代理是在编译时进行织入或类加载时进行织入，比如AspectJ。<br>关于AOP还需要了解一下对应的Aspect、pointcut、advice等注解和具体使用方式。</p>
+<h3 id="placeHolder动态替换"><a href="#placeHolder动态替换" class="headerlink" title="placeHolder动态替换"></a>placeHolder动态替换</h3><p>主要需要了解替换发生的时间，是在bean definition创建完成后，bean初始化之前，是通过实现BeanFactoryPostProcessor接口实现的。主要实现方式有PropertyPlaceholderConfigurer和PropertySourcesPlaceholderConfigurer。这两个类实现逻辑不一样，spring boot使用PropertySourcesPlaceholderConfigurer实现。</p>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>需要了解spring 中对事务规定的隔离类型和事务传播类型。要知道事务的隔离级别是由具体的数据库来实现的，在数据库部分我会详细介绍。<br>事务的传播类型，可以重点了解最常用的REQUIRED和SUPPORTS类型。</p>
+<h3 id="核心接口类"><a href="#核心接口类" class="headerlink" title="核心接口类"></a>核心接口类</h3><ul>
+<li>ApplicationContext保存了ioc的整个应用上下文，可以通过其中的beanfactory获取到任意到bean；</li>
+<li>BeanFactory主要的作用是根据bean definition来创建具体的bean；</li>
+<li>BeanWrapper是对Bean的包装，一般情况下是在spring ioc内部使用，提供了访问bean的属性值、属性编辑器注册、类型转换等功能，方便ioc容器用统一的方式来访问bean的属性；</li>
+<li>FactoryBean通过getObject方法返回实际的bean对象，例如motan框架中referer对service的动态代理就是通过FactoryBean来实现的。<h3 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h3>bean的scope是指bean的作用域，默认情况下是单例模式，这也是使用最多的一种方式；多例模式，即每次从beanFactory中获取bean都会创建一个新的bean。<br>request、session、global-session是在web服务中使用的scope，request每次请求都创建一个实例，session是在一个会话周期内保证只有一个实例。<br>global-session在5.x版本中已经不在使用，同时增加了Application和Websocket两种scope，分别保证在一个ServletContext与一个WebSocket中只创建一个实例。<h3 id="事件机制"><a href="#事件机制" class="headerlink" title="事件机制"></a>事件机制</h3>spring的事件机制需要知道spring定义的五种标准事件，具体事件可见上图，了解如何自定义事件和实现对应的applicationListener来处理自定义事件。<h2 id="spring应用相关"><a href="#spring应用相关" class="headerlink" title="spring应用相关"></a>spring应用相关</h2><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/ScLmyQ.jpg" alt="ScLmyQ"><h3 id="常用注释"><a href="#常用注释" class="headerlink" title="常用注释"></a>常用注释</h3><h4 id="类型类注释"><a href="#类型类注释" class="headerlink" title="类型类注释"></a>类型类注释</h4>类型类注释包括controller、service等，需要重点了解<br />其中component和bean注解的区别如下：<ul>
+<li>@Component注解在类上使用表明这个类是个组件类，需要Spring为这个类创建bean。</li>
+<li>@Bean注解使用在方法上，告诉Spring这个方法将会返回一个Bean对象，需要把返回的对象注册到Spring的应用上下文中。<h4 id="设置类注解"><a href="#设置类注解" class="headerlink" title="设置类注解"></a>设置类注解</h4>重点了解@Autowire和@Qualifier以及bytype、byname等不同的自动装配机制。<h4 id="web类注解"><a href="#web类注解" class="headerlink" title="web类注解"></a>web类注解</h4>主要以了解为主，关注@RequestMapping、@GetMapping、@PostMapping等路径匹配注解，以及@PathVariable、@RequestParam 等参数获取注解。<h4 id="功能类注解"><a href="#功能类注解" class="headerlink" title="功能类注解"></a>功能类注解</h4>包括@ImportResource引用配置、@ComponentScan注解自动扫描、@Transactional事务注解等等，这里不一一介绍了。<h3 id="配置方式"><a href="#配置方式" class="headerlink" title="配置方式"></a>配置方式</h3>需要了解配置spring的几种方式，xml文件配置、注解配置和使用api进行配置。<br />自动装配机制需要了解按类型匹配进行自动装配，按bean名称进行自动装配，构造器中的自动装配和自动检测等主要的四种方式。<br />还需要了解一下list、set、map等集合类属性的配置方式以及内部bean的使用。</li>
+</ul>
+</li>
+</ul>
+<h2 id="四、Spring的Context的初始化流程"><a href="#四、Spring的Context的初始化流程" class="headerlink" title="四、Spring的Context的初始化流程"></a>四、Spring的Context的初始化流程</h2><p><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/PjJyQL.jpg" alt="PjJyQL"><br>Spring Context初始化流程<br />图中左上角是三种类型的context，xml配置方式的context、springboot的context和web服务的context。不论哪种context，创建后都会调用到AbstractApplicationContext类的refresh方法，这个方法是我们要重点分析的。</p>
+<h3 id="refresh方法中，操作共分13步"><a href="#refresh方法中，操作共分13步" class="headerlink" title="refresh方法中，操作共分13步"></a>refresh方法中，操作共分13步</h3><ol>
+<li>对刷新进行准备，包括设置开始时间、设置激活状态、初始化context环境中的占位符，这个动作根据子类的需求由子类来执行，然后验证是否缺失必要的properties；</li>
+<li>刷新并获得内部的bean factory；</li>
+<li>对bean factory进行准备工作，比如设置类加载器和后置处理器、配置不进行自动装配的类型、注册默认的环境bean；</li>
+<li>为context的子类提供后置处理bean factory的扩展能力。如果子类想在bean定义加载完成后，开始初始化上下文之前做一些特殊逻辑，可以复写这个方法；</li>
+<li>执行context中注册的bean factory后缀处理器；<blockquote>
+<p>注：这里有两种后置处理器，一种是可以注册bean的后缀处理器，另一种是针对bean factory进行处理的后置处理器。执行的顺序是，先按优先级执行可注册bean的处理器，在按优先级执行针对beanfactory的处理器。对springboot来说，这一步会进行注解bean definition的解析。流程如右面小框中所示，由ConfigurationClassPostProcessor触发、由ClassPathBeanDefinitionScanner解析并注册到bean factory。</p>
+</blockquote>
+</li>
+<li>按优先级顺序在beanfactory中注册bean的后缀处理器，bean后置处理器可以在bean初始化前、后执行处理；</li>
+<li>初始化消息源，消息源用来支持消息的国际化；</li>
+<li>初始化应用事件广播器。事件广播器用来向applicationListener通知各种应用产生的事件，是一个标准的观察者模式；</li>
+<li>是留给子类的扩展步骤，用来让特定的context子类初始化其他的bean；</li>
+<li>把实现了ApplicationListener的bean注册到事件广播器，并对广播器中的早期未广播事件进行通知；</li>
+<li>冻结所有bean描述信息的修改，实例化非延迟加载的单例bean；</li>
+<li>完成上下文的刷新工作，调用LifecycleProcessor的onFresh()方法以及发布ContextRefreshedEvent事件；</li>
+<li>在finally中，执行第十三步，重置公共的缓存，比如ReflectionUtils中的缓存、AnnotationUtils中的缓存等等；</li>
+</ol>
+<p>至此，spring的context初始化完成。这里仅介绍了最主要的主流程，建议课后阅读源码来复习这个知识点，补全细节。</p>
+<h2 id="五、Spring中bean的生命周期"><a href="#五、Spring中bean的生命周期" class="headerlink" title="五、Spring中bean的生命周期"></a>五、Spring中bean的生命周期</h2><p><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/1BcbwS.jpg" alt="1BcbwS"><br>Spring中bean的生命周期<br><strong>面试中经常问到的bean的生命周期，先看绿色的部分，bean的创建过程:</strong></p>
+<ol>
+<li>调用bean的构造方法创建bean；</li>
+<li>通过反射调用setter方法进行属性的依赖注入；</li>
+<li>如果实现BeanNameAware接口的话，会设置bean的name；</li>
+<li>如果实现了BeanFactoryAware，会把bean factory设置给bean；</li>
+<li>如果实现了ApplicationContextAware，会给bean设置ApplictionContext；</li>
+<li>如果实现了BeanPostProcessor接口，则执行前置处理方法；</li>
+<li>实现了InitializingBean接口的话，执行afterPropertiesSet方法；</li>
+<li>执行自定义的init方法；</li>
+<li>执行BeanPostProcessor接口的后置处理方法。</li>
+</ol>
+<p>这时，就完成了bean的创建过程。在使用完bean需要销毁时，会先执行DisposableBean接口的destroy方法，然后在执行自定义的destroy方法。这部分也建议阅读源码加深理解。</p>
+<h2 id="六、Spring扩展接口"><a href="#六、Spring扩展接口" class="headerlink" title="六、Spring扩展接口"></a>六、Spring扩展接口</h2><p><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/7sNv8H.jpg" alt="7sNv8H"><br>Spring扩展接口对spring进行定制化功能扩展时，可以选择如下一些扩展点：</p>
+<h3 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h3><p>是beanFactory后置处理器，支持在bean factory标准初始化完成后，对bean factory进行一些额外处理。在讲context初始化流程时介绍过，这时所有的bean的描述信息已经加载完毕，但是还没有进行bean初始化。例如前面提到的PropertyPlaceholderConfigurer，就是在这个扩展点上对bean属性中的占位符进行替换。</p>
+<h3 id="BeanDefinitionRegistryPostProcessor"><a href="#BeanDefinitionRegistryPostProcessor" class="headerlink" title="BeanDefinitionRegistryPostProcessor"></a>BeanDefinitionRegistryPostProcessor</h3><p>它扩展自BeanFactoryPostProcessor，在执行BeanFactoryPostProcessor的功能前，提供了可以添加bean definition的能力，允许在初始化一般bean前，注册额外的bean。例如可以在这里根据bean的scope创建一个新的代理bean。</p>
+<h3 id="BeanPostProcessor"><a href="#BeanPostProcessor" class="headerlink" title="BeanPostProcessor"></a>BeanPostProcessor</h3><p>提供了在bean初始化之前和之后插入自定义逻辑的能力。与BeanFactoryPostProcessor的区别是处理的对象不同，BeanFactoryPostProcessor是对beanfactory进行处理，BeanPostProcessor是对bean进行处理。<br /><strong>注：上面这三个扩展点，可以通过实现Ordered和PriorityOrdered接口来指定执行顺序。实现PriorityOrdered接口的processor会先于实现Ordered接口的执行。</strong></p>
+<h3 id="ApplicationContextAware"><a href="#ApplicationContextAware" class="headerlink" title="ApplicationContextAware"></a>ApplicationContextAware</h3><p>可以获得ApplicationContext及其中的bean，当需要在代码中动态获取bean时，可以通过实现这个接口来实现。</p>
+<h3 id="InitializingBean"><a href="#InitializingBean" class="headerlink" title="InitializingBean"></a>InitializingBean</h3><p>可以在bean初始化完成，所有属性设置完成后执行特定逻辑，例如对自动装配对属性进行验证等等。</p>
+<h3 id="DisposableBean"><a href="#DisposableBean" class="headerlink" title="DisposableBean"></a>DisposableBean</h3><p>用于在bean被销毁前执行特定的逻辑，例如做一些回收工作等。</p>
+<h3 id="ApplicationListener"><a href="#ApplicationListener" class="headerlink" title="ApplicationListener"></a>ApplicationListener</h3><p>用来监听spring的标准应用事件或者自定义事件。</p>
+<h2 id="七、springboot相关的知识点"><a href="#七、springboot相关的知识点" class="headerlink" title="七、springboot相关的知识点"></a>七、springboot相关的知识点</h2><p><img src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/UkH2xV.jpg" alt="UkH2xV"></p>
+<h3 id="1-启动流程"><a href="#1-启动流程" class="headerlink" title="1. 启动流程"></a>1. 启动流程</h3><p>主要步骤首先要配置environment，然后准备context上下文，包括执行applicationContext的后置处理、初始化initializer、通知listener处理contextPrepared和contextLoaded事件。最后执行refreshContext，也就是前面介绍过的AbstractApplicationContext类的refresh方法。</p>
+<h3 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2. 配置文件"></a>2. 配置文件</h3><p>然后要知道在Spring Boot中有两种上下文，一种是bootstrap, 另外一种是application。<br />bootstrap是应用程序的父上下文，也就是说bootstrap会先于applicaton加载。bootstrap主要用于从额外的资源来加载配置信息，还可以在本地外部配置文件中解密属性。bootstrap里面的属性会优先加载，默认也不能被本地相同配置覆盖。</p>
+<h3 id="3-注解"><a href="#3-注解" class="headerlink" title="3. 注解"></a>3. 注解</h3><p>@SpringBootApplication包含了@ComponentScan、@EnableAutoConfiguration、@SpringBootConfiguration三个注解。 而@SpringBootConfiguration注解包含了@Configuration注解。也就是springboot的自动配置功能。@Conditional注解就是控制自动配置的生效条件的注解，例如bean或class存在、不存在时进行配置，当满足条件时进行配置等等。</p>
+<h3 id="4-特色模块"><a href="#4-特色模块" class="headerlink" title="4. 特色模块"></a>4. 特色模块</h3><ul>
+<li>starter是springboot提供的无缝集成功能的一种方式，使用某个功能时开发者不需要关注各种依赖库的处理，不需要具体的配置信息，由Spring Boot自动配置进行bean的创建。例如需要使用web功能时，只需要在依赖中引入spring-boot-starter-web即可。</li>
+<li>actuator是用来对应用程序进行监视和管理，通过restful api请求来监管、审计、收集应用的运行情况。</li>
+<li>devtools提供了一系列开发工具的支持，来提高开发效率。例如热部署能力等。</li>
+<li>CLI就是命令行接口，是一个命令行工具，支持使用Groovy脚本，可以快速搭建spring原型项目。</li>
+</ul>
+<p>以上为Spring框架需要掌握的内容，前面提到的核心机制、核心流程，建议阅读源码加深理解。<br>以上内容摘取自《32个Java面试必考点》 第07讲：必会框架-Spring全家桶</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://broadgeek.com">Danny S.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://broadgeek.com/2019/12/30/9b0a/">https://broadgeek.com/2019/12/30/9b0a/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://broadgeek.com" target="_blank">极客丹尼</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spring/">Spring</a><a class="post-meta__tags" href="/tags/Springboot/">Springboot</a></div><div class="post_share"><div class="social-share" data-image="https://i2.wp.com/www.e4developer.com/wp-content/uploads/2018/08/spring-boot-best-practices.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/01/08/69ef/"><img class="prev-cover" src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/WiUhrJ.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SIP系统完整性保护怎么禁用？SIP系统完整性关闭方法</div></div></a></div><div class="next-post pull-right"><a href="/2019/12/30/f2b0/"><img class="next-cover" src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/PlGbPd.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring 全家桶 10 Days - Day 1 Spring 家族的主要成员</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/12/30/f2b0/" title="Spring 全家桶 10 Days - Day 1 Spring 家族的主要成员"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/uPic/PlGbPd.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2019-12-30</div><div class="title">Spring 全家桶 10 Days - Day 1 Spring 家族的主要成员</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Danny S.</div><div class="author-info__description">白羊男子 指尖微凉<br> 一半明媚 一半忧伤</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg"><i class="fab fa-weixin"></i><span>微信</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/geekdanny" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dhrsongcs@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">每天进步一点点</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E7%9F%A5%E8%AF%86%E7%82%B9-%E6%B1%87%E6%80%BB"><span class="toc-number">1.</span> <span class="toc-text">Spring知识点-汇总</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%815%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84spring%E6%A1%86%E6%9E%B6"><span class="toc-number">2.</span> <span class="toc-text">一、5个常用的spring框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#spring-framework"><span class="toc-number">2.1.</span> <span class="toc-text">spring framework</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring-boot"><span class="toc-number">2.2.</span> <span class="toc-text">spring boot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Data"><span class="toc-number">2.3.</span> <span class="toc-text">Spring Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Cloud"><span class="toc-number">2.4.</span> <span class="toc-text">Spring Cloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Security"><span class="toc-number">2.5.</span> <span class="toc-text">Spring Security</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Struts%E7%9A%84%E5%85%B7%E4%BD%93%E4%BD%9C%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">二、Struts的具体作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%B8%B8%E7%94%A8%E7%9A%84ORM%E6%A1%86%E6%9E%B6"><span class="toc-number">4.</span> <span class="toc-text">三、常用的ORM框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Netty%E7%AE%80%E4%BB%8B"><span class="toc-number">5.</span> <span class="toc-text">四、Netty简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81RPC%E6%9C%8D%E5%8A%A1"><span class="toc-number">6.</span> <span class="toc-text">五、RPC服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E6%A1%86%E6%9E%B6"><span class="toc-number">7.</span> <span class="toc-text">六、其他常用框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E7%9F%A5%E8%AF%86%E7%82%B9-%E8%AF%A6%E8%A7%A3"><span class="toc-number">8.</span> <span class="toc-text">Spring知识点-详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81spring%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">8.1.</span> <span class="toc-text">一、spring基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IOC"><span class="toc-number">8.1.1.</span> <span class="toc-text">IOC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#context%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8Cbean"><span class="toc-number">8.1.2.</span> <span class="toc-text">context上下文和bean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP"><span class="toc-number">8.1.3.</span> <span class="toc-text">AOP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81spring%E6%A1%86%E6%9E%B6"><span class="toc-number">8.2.</span> <span class="toc-text">二、spring框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81spring%E4%B8%AD%E6%9C%BA%E5%88%B6%E5%92%8C%E5%AE%9E%E7%8E%B0"><span class="toc-number">8.3.</span> <span class="toc-text">三、spring中机制和实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP-1"><span class="toc-number">8.3.1.</span> <span class="toc-text">AOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#placeHolder%E5%8A%A8%E6%80%81%E6%9B%BF%E6%8D%A2"><span class="toc-number">8.3.2.</span> <span class="toc-text">placeHolder动态替换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-number">8.3.3.</span> <span class="toc-text">事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3%E7%B1%BB"><span class="toc-number">8.3.4.</span> <span class="toc-text">核心接口类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scope"><span class="toc-number">8.3.5.</span> <span class="toc-text">Scope</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6"><span class="toc-number">8.3.6.</span> <span class="toc-text">事件机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring%E5%BA%94%E7%94%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">8.4.</span> <span class="toc-text">spring应用相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%B3%A8%E9%87%8A"><span class="toc-number">8.4.1.</span> <span class="toc-text">常用注释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E7%B1%BB%E6%B3%A8%E9%87%8A"><span class="toc-number">8.4.1.1.</span> <span class="toc-text">类型类注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%B1%BB%E6%B3%A8%E8%A7%A3"><span class="toc-number">8.4.1.2.</span> <span class="toc-text">设置类注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E7%B1%BB%E6%B3%A8%E8%A7%A3"><span class="toc-number">8.4.1.3.</span> <span class="toc-text">web类注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E7%B1%BB%E6%B3%A8%E8%A7%A3"><span class="toc-number">8.4.1.4.</span> <span class="toc-text">功能类注解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F"><span class="toc-number">8.4.2.</span> <span class="toc-text">配置方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Spring%E7%9A%84Context%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B"><span class="toc-number">8.5.</span> <span class="toc-text">四、Spring的Context的初始化流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#refresh%E6%96%B9%E6%B3%95%E4%B8%AD%EF%BC%8C%E6%93%8D%E4%BD%9C%E5%85%B1%E5%88%8613%E6%AD%A5"><span class="toc-number">8.5.1.</span> <span class="toc-text">refresh方法中，操作共分13步</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">8.6.</span> <span class="toc-text">五、Spring中bean的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81Spring%E6%89%A9%E5%B1%95%E6%8E%A5%E5%8F%A3"><span class="toc-number">8.7.</span> <span class="toc-text">六、Spring扩展接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanFactoryPostProcessor"><span class="toc-number">8.7.1.</span> <span class="toc-text">BeanFactoryPostProcessor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanDefinitionRegistryPostProcessor"><span class="toc-number">8.7.2.</span> <span class="toc-text">BeanDefinitionRegistryPostProcessor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanPostProcessor"><span class="toc-number">8.7.3.</span> <span class="toc-text">BeanPostProcessor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ApplicationContextAware"><span class="toc-number">8.7.4.</span> <span class="toc-text">ApplicationContextAware</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InitializingBean"><span class="toc-number">8.7.5.</span> <span class="toc-text">InitializingBean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DisposableBean"><span class="toc-number">8.7.6.</span> <span class="toc-text">DisposableBean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ApplicationListener"><span class="toc-number">8.7.7.</span> <span class="toc-text">ApplicationListener</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81springboot%E7%9B%B8%E5%85%B3%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">8.8.</span> <span class="toc-text">七、springboot相关的知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">8.8.1.</span> <span class="toc-text">1. 启动流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">8.8.2.</span> <span class="toc-text">2. 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B3%A8%E8%A7%A3"><span class="toc-number">8.8.3.</span> <span class="toc-text">3. 注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%89%B9%E8%89%B2%E6%A8%A1%E5%9D%97"><span class="toc-number">8.8.4.</span> <span class="toc-text">4. 特色模块</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系"><img src="https://s2.loli.net/2022/04/21/JVjPkp1tIU8xmZ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C标准库 POSIX库 glibc库有什么关系"/></a><div class="content"><a class="title" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系">C标准库 POSIX库 glibc库有什么关系</a><time datetime="2022-04-20T19:56:32.000Z" title="更新于 2022-04-20 12:56:32">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/49da/" title="一些常见的国际标准化组织"><img src="https://s2.loli.net/2022/04/21/1wicXtVxAMlHZOf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些常见的国际标准化组织"/></a><div class="content"><a class="title" href="/2022/04/20/49da/" title="一些常见的国际标准化组织">一些常见的国际标准化组织</a><time datetime="2022-04-20T19:07:33.000Z" title="更新于 2022-04-20 12:07:33">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现"><img src="https://s2.loli.net/2021/12/13/f93YwJV1RTSMNbx.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="骁龙8Gen1 SoC 在ARMv9上的落地表现"/></a><div class="content"><a class="title" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现">骁龙8Gen1 SoC 在ARMv9上的落地表现</a><time datetime="2021-12-12T23:52:09.000Z" title="更新于 2021-12-12 15:52:09">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进"><img src="https://s2.loli.net/2021/12/13/ew5lOSUv6LWHtGr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ARMv9以及公版CPU有什么重大改进"/></a><div class="content"><a class="title" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进">ARMv9以及公版CPU有什么重大改进</a><time datetime="2021-12-12T18:04:13.000Z" title="更新于 2021-12-12 10:04:13">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/11/17d7/" title="移动GPU测试那些事"><img src="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="移动GPU测试那些事"/></a><div class="content"><a class="title" href="/2021/12/11/17d7/" title="移动GPU测试那些事">移动GPU测试那些事</a><time datetime="2021-12-11T18:38:27.000Z" title="更新于 2021-12-11 10:38:27">2021-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background: black"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Danny S.</div><div class="footer_custom_text">回忆是一种重逢 遗忘是一种自由</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '680c63616574c46feb6f',
+      clientSecret: '6ae95fb865944251ddd1751dd0d7e445aeddd831',
+      repo: 'geek-comments',
+      owner: 'geekdanny',
+      admin: ['geekdanny'],
+      id: '8847d32f0695e86ccd780a672ba57c0c',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const findTrueUrl = (array) => {
+    Promise.all(array.map(item =>
+      fetch(item.url).then(resp => resp.json()).then(data => {
+        const urlArray = data.body.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ig)
+        if (data.user.login === 'utterances-bot') {
+          return urlArray.pop()
+        } else {
+          return urlArray.shift()
+        }
+      })
+    )).then(res => {
+        array = array.map((i,index)=> {
+          return {
+            ...i,
+            url: res[index]
+          }
+        })
+
+        saveToLocal.set('github-newest-comments', JSON.stringify(array), 10/(60*24))
+        generateHtml(array)
+    });
+  }
+
+  const getComment = () => {
+    fetch('https://api.github.com/repos/geekdanny/geek-comments/issues/comments?sort=updated&direction=desc&per_page=6&page=1',{
+      "headers": {
+        Accept: 'application/vnd.github.v3.html+json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const githubArray = data.map(item => {
+          return {
+            'avatar': item.user.avatar_url,
+            'content': changeContent(item.body_html),
+            'nick': item.user.login,
+            'url': item.issue_url,
+            'date': item.updated_at,
+            'githubUrl': item.html_url
+          }
+        })
+        findTrueUrl(githubArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('github-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="4900141628" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.9}});</script></body></html>

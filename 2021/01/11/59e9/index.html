@@ -1,0 +1,573 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Vulkan 导读1: 下一代图形API | 极客丹尼</title><meta name="keywords" content="Vulkan"><meta name="author" content="Danny S."><meta name="copyright" content="Danny S."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="写在之前：此篇为Danny针对《Learning Vulkan》一书的导读。导读的目的主要是将一些重要的概念重点归纳和解释，并对不清楚的概念提出疑问，作为后续工作和学习中的待澄清点。 Danny认为，一本好的书，是可以加深技术理解，自画自圆，其义自见的；一本不好的书，要靠读者去猜，搜索很多其他补助资料才能澄清。优秀的书是可以从全局观开始，聚焦到细节。一本不好的书，说的都是正确的废话。 最近读了两本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vulkan 导读1: 下一代图形API">
+<meta property="og:url" content="https://broadgeek.com/2021/01/11/59e9/index.html">
+<meta property="og:site_name" content="极客丹尼">
+<meta property="og:description" content="写在之前：此篇为Danny针对《Learning Vulkan》一书的导读。导读的目的主要是将一些重要的概念重点归纳和解释，并对不清楚的概念提出疑问，作为后续工作和学习中的待澄清点。 Danny认为，一本好的书，是可以加深技术理解，自画自圆，其义自见的；一本不好的书，要靠读者去猜，搜索很多其他补助资料才能澄清。优秀的书是可以从全局观开始，聚焦到细节。一本不好的书，说的都是正确的废话。 最近读了两本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/geekdanny/images/master/blog/640.jpg">
+<meta property="article:published_time" content="2021-01-11T22:06:46.000Z">
+<meta property="article:modified_time" content="2021-01-11T22:06:46.000Z">
+<meta property="article:author" content="Danny S.">
+<meta property="article:tag" content="Vulkan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/geekdanny/images/master/blog/640.jpg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/geekdanny/images/master/kirito.ico"><link rel="canonical" href="https://broadgeek.com/2021/01/11/59e9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ma+Shan+Zheng" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vulkan 导读1: 下一代图形API',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-01-11 14:06:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="极客丹尼" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/geekdanny/images/master/blog/640.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">极客丹尼</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Vulkan 导读1: 下一代图形API</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-11T22:06:46.000Z" title="发表于 2021-01-11 14:06:46">2021-01-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-11T22:06:46.000Z" title="更新于 2021-01-11 14:06:46">2021-01-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%BD%A2%E6%8A%80%E6%9C%AF/">图形技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>19分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Vulkan 导读1: 下一代图形API"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>写在之前：此篇为Danny针对《Learning Vulkan》一书的导读。导读的目的主要是将一些重要的概念重点归纳和解释，并对不清楚的概念提出疑问，作为后续工作和学习中的<strong>待澄清点</strong>。</p>
+<p>Danny认为，一本好的书，是可以加深技术理解，自画自圆，其义自见的；一本不好的书，要靠读者去猜，搜索很多其他补助资料才能澄清。优秀的书是可以从全局观开始，聚焦到细节。一本不好的书，说的都是正确的废话。 最近读了两本关于Vulkan的书，一本是电子版的《Learning Vulkan》。</p>
+<p><img src="https://raw.githubusercontent.com/geekdanny/images/master/blog/640.jpg" alt="图片"></p>
+<p>一本是花了$175购买的纸质的《Computer Graphics and the Vulkan API》</p>
+<p>两本书都是对下一代图形API的细节展开，Danny希望通过一种导读的形式来将这两本书的一些重要概念融合一下。写这篇文章的内容不是说大家看导读就不用去读书了，而是希望辅助大家阅读图书。如今的时代都是<strong>速食知识消费，time is money。 大家都没有时间，</strong>但是这种<strong>速食</strong>知识消费很容易让大家<strong>知其然而不知其所以然</strong>。</p>
+<p>导读的梳理其实比较耗时间。技术读物不像读小说那样可以进行速读，阅读过程要注意的环节是避免眼球回跳。但是，很多内容还是需要理解和自我提问，甚至对于解释模糊不清的内容还要查阅第三方资料。所以花一个礼拜读完一本技术书，两天后可能只记得几幅图片了。 技术内容的阅读还是要记录笔记和操作代码尝试同步进行，毕竟别人嚼过的饭菜自己吃着肯定没有味道。 </p>
+<p>小的时候电视节目不多，网络也不发达，那个时候是真的可以安心看看几本书；长大了之后，我们的耐心呢？那我们回到正文吧。</p>
+<p><strong>名词解释</strong></p>
+<p><strong>Physical device and device</strong>：A physical device represents a unique device,whereas a device refers to a logical representation of the physical device in anapplication.</p>
+<p><strong>Memory type</strong>：两种内存类型，host 和 device。</p>
+<p><strong>Command</strong>： 某个行为的指令。具体包括三种，action，set state，sync。</p>
+<p><img src="https://i.loli.net/2021/11/12/5endD7JGHTRU3x6.png" alt="5endD7JGHTRU3x6"></p>
+<h1 id="Vulkan的工作机制"><a href="#Vulkan的工作机制" class="headerlink" title="Vulkan的工作机制"></a>Vulkan的工作机制</h1><ul>
+<li>Vulkan 让应用程序<strong>显式地</strong>管理内存。</li>
+<li>Command buffers 被提交到queues上，然后由queues把这些command buffer jobs提交给物理设备处理。</li>
+</ul>
+<p><img src="https://i.loli.net/2021/11/12/ZksXYdjCo1hWliT.png" alt="ZksXYdjCo1hWliT"></p>
+<p><img src="https://raw.githubusercontent.com/geekdanny/images/master/blog/image-20210111141408581.png" alt="image-20210111141408581"></p>
+<h1 id="Vulkan’s-Queues"><a href="#Vulkan’s-Queues" class="headerlink" title="Vulkan’s Queues"></a>Vulkan’s Queues</h1><ul>
+<li><strong>Queues</strong>是把command buffers 喂给GPU设备的<strong>媒介</strong>。</li>
+<li><strong>Command Buffers</strong> 记录一个或多个commands并把它们提交给指定的queue上。</li>
+<li>设备一般会有多个queues，所以把command buffer提交到queue的工作要由app来负责。</li>
+<li>Command buffers 可以被提交到一个 或 多个Queue上。</li>
+</ul>
+<h2 id="Single-Queue："><a href="#Single-Queue：" class="headerlink" title="Single Queue："></a><strong>Single Queue：</strong></h2><ul>
+<li>维护了command buffer的submission和execution的顺序，和playback。 （playback是什么，这里先带着问号，之后去找解释。）</li>
+<li>Command Buffers 是按照顺序执行的。</li>
+</ul>
+<h2 id="多个Queues的时候"><a href="#多个Queues的时候" class="headerlink" title="多个Queues的时候"></a><strong>多个Queues的时候</strong></h2><ul>
+<li>允许command buffer在两个甚至多个queues上平行执行</li>
+<li>除非需要显式的定义，command buffers 的提交和执行顺序 不能得到保证。 应用程序必须对同步机制负责。否则，执行的顺序可能完全失控。</li>
+</ul>
+<h1 id="Vulkan-的同步机制"><a href="#Vulkan-的同步机制" class="headerlink" title="Vulkan 的同步机制"></a>Vulkan 的同步机制</h1><p><strong>Semaphore</strong>： 用来同步多个queues或者 a coarse-grained command buffer submission in a single queue</p>
+<p><strong>Events</strong>： 用来控制fine-grained sychronization 并且用在single queue上，使同步工作既可以在single command buffer上完成 也可以在a sequence of command buffers on a single queue上完成。</p>
+<p><strong>Fences</strong>： 允许 同步可以在host 和设备两者之间完成。</p>
+<p><strong>Pipeline Barriers</strong>：a pipeline barrier 是一个被插入的instruction，它用来保证一个command buffer里的被插入的这个instructuction的前边的commands必须比它后边的commands先执行。</p>
+<h1 id="Vulkan-Objects"><a href="#Vulkan-Objects" class="headerlink" title="Vulkan Objects"></a>Vulkan Objects</h1><p>从应用层角度出发：所有的entities，包括devices，queues，command buffers， framebuffers， pipelines等都叫做Vulkan Objects。</p>
+<p>从API 层来看，这些Vulkan Objects被认为是handles。这些handles分成两种：</p>
+<p><strong>Dispatchable handles</strong>：这种handle是一个指针，指向一个不可以直接被access或是一个不可以被更改其内部fields的entity。这些fields的只能通过API的方式来access。 每一个dispatchable handle都有一个相关的dispatchable type。handle是可以作为parameter 被传入API的command里。这些handle包括如下：</p>
+<p><img src="https://i.loli.net/2021/11/12/zCdRGpANj4HoUxg.png" alt="obNZ7clekvLaxH2"></p>
+<p><strong>Non-dispatchable handles：</strong>64-bit integer 类型的handles。这种类型的handle并不是指针，相反，它可能会存有它所表示的object的信息。</p>
+<p><img src="https://raw.githubusercontent.com/geekdanny/images/master/blog/640-20210111140810447.jpg" alt="图片"></p>
+<h1 id="Objects的生命周期-and-command-syntax"><a href="#Objects的生命周期-and-command-syntax" class="headerlink" title="Objects的生命周期 and command syntax"></a>Objects的生命周期 and command syntax</h1><p>Vulkan的对象是由app来显式地create和destory的。Vulkan提供了create和destroy两种command来创建和删除object。</p>
+<p>这些command 的 syntax如下：</p>
+<ul>
+<li>Create syntax: Objects are created using the vkCreate* command; this accepts a Vk*CreateInfo structure as a parameter input</li>
+<li>Destroy syntax: The objects produced using the Create command are destroyed using vkDestroy*</li>
+</ul>
+<p>从现有object pool 或者 heap 上创建的Objects 是通过 Allocate command 创建，释放是通过Free。</p>
+<ul>
+<li><p><strong>Allocate syntax:</strong> Objects that are created as part of an object pool use vkAllocate* along with Vk*AllocateInfo as an argument input.</p>
+</li>
+<li><p><strong>Freeing syntax</strong>: Objects are released back to the pool or memory using the vkFree* command.</p>
+</li>
+</ul>
+<p>通常来说，Vulkan的command可以简单的区分为两种，一种是Get型，另一种是record型。</p>
+<p><img src="https://i.loli.net/2021/11/12/5i6ScpUmuZ8rzQW.png" alt="9HnYXdgolhRmLib"></p>
+<h1 id="Vulkan-应用跟周边的关系"><a href="#Vulkan-应用跟周边的关系" class="headerlink" title="Vulkan 应用跟周边的关系"></a>Vulkan 应用跟周边的关系</h1><p><img src="https://i.loli.net/2021/11/12/j1VprakqLRQJcoy.png" alt="image-20211111120007589"></p>
+<p>对于上述各个组件，请参考Learning Vulkan英文解释如下：</p>
+<p><strong><em>Driver</em></strong></p>
+<p><em>A Vulkan-capable system comprises a minimum of one CPU and GPU. IHV’s vendor supplies the driver of a given Vulkan specification implementation for their dedicated GPU architecture. The driver acts as an interface between the application and the device itself. It provides high-level facilities to the application so it can communicate with the device. For example, it advertises the number of devices available on the system, their queues and queue capabilities, available heaps and their related properties, and so on.</em></p>
+<p><strong><em>Application</em></strong></p>
+<p><em>An application refers to a user-written program that is intended to make use of Vulkan APIs to perform graphics or compute jobs. The application starts with the initialization of the hardware and software; it detects the driver and loads all the Vulkan APIs. The presentation layer is initialized with Vulkan’s Window System Integration (WSI) APIs; WSI will be helpful in rendering the drawing image on the display surface. The application creates resources and binds them to the shader stage using descriptors. The descriptor set layout helps bind the created resources to the underlying pipeline object that is created (of the graphics or compute type). Finally, command buffers are recorded and submitted to the queue for processing.</em></p>
+<p><strong><em>WSI</em></strong></p>
+<p><em>Windows System Integration is a set of extensions from Khronos for the unification of the presentation layer across different platforms, such as Linux, Windows, and Android.</em></p>
+<p><strong><em>SPIR-V</em></strong></p>
+<p><em>SPIR-V provides a precompiled binary format for specifying shaders to Vulkan. Compilers are available for various shader source languages, including variants of GLSL and HLSL, which produce SPIR-V.</em></p>
+<p><strong><em>LunarG SDK</em></strong></p>
+<p><em>The Vulkan SDK from LunarG comprises a variety of tools and resources to aid Vulkan application development. These tools and resources include the Vulkan loader, validation layers, trace and replay tools, SPIR-V tools, Vulkan runtime installer, documentation, samples, and demos…You can read more about it at <a target="_blank" rel="noopener" href="http://lunarg.com/vulkan-sdk">http://lunarg.com/vulkan-sdk</a>.</em></p>
+<h1 id="Vulkan开发流程"><a href="#Vulkan开发流程" class="headerlink" title="Vulkan开发流程"></a>Vulkan开发流程</h1><p><img src="https://i.loli.net/2021/11/12/PXVc6AdFCYTekR7.png" alt="PXVc6AdFCYTekR7"></p>
+<h2 id="1-硬件初始化"><a href="#1-硬件初始化" class="headerlink" title="1. 硬件初始化"></a>1. 硬件初始化</h2><p>Application通过Loader来激活Vulkan 的drivers。Loader包含以下组件：</p>
+<p><img src="https://i.loli.net/2021/11/12/koEtw53xHyRKpVA.png" alt="koEtw53xHyRKpVA"></p>
+<p><strong>名词解释</strong>：<em>Loader。是一组代码。因为Vulkan是跨平台的，所以在应用程序启动的时候来，loader是用来定位应用程序所处系统的Vulkan的driver。</em></p>
+<p>Loader有三个主要的职责：</p>
+<p><strong>Locating drivers， Platform-independent， 和 Injectale layers</strong></p>
+<p>当loader完成了drivers的定位和其API 的linking后，App就要负责完成以下操作：</p>
+<p>创建Vulkan Instance</p>
+<p>查询可用的GPU物理设备所能提供的queues</p>
+<p>查询extensions，并把extensions存储为function pointers， 例如WSI 或者 speicial feature APIs</p>
+<p>使能一个injectable layer来做error checking，debugging 或者 validation</p>
+<h2 id="2-窗口展现"><a href="#2-窗口展现" class="headerlink" title="2. 窗口展现"></a>2. 窗口展现</h2><p>当完成了loader定位driver这一环节，我们就可以用Vulkan API来draw东西了。这里，我们需要一个image来执行drawing task，并把image放的presetation window去显示出来。</p>
+<p><img src="https://raw.githubusercontent.com/geekdanny/images/master/blog/640-20210111140811196.jpg" alt="图片"></p>
+<p>跟OpenGL不同的是，Vulkan的context 和 device没有包括window system，Vulkan是通过Windows System Integration（WSI）来管理的 window的，而GL的context和device是在创建windows system framebuffer时就一起创建好了。</p>
+<p>WSI 包括了一组跨平台的窗口管理拓展。可以支撑Windows，Linux，Android等不同的操作系统。并且它是一套consistent API标准，可以简单地用来创建surfaces，并把sufaces显示出来。</p>
+<p>WSI提供了swapchain的机制。这个机制允许使用多个images，这就使得当窗口系统在显示一个image的时候，App可以准备下一个image。下图解释了double-buffering swap image的过程。这个过程使用了两个images。在<strong>WSI</strong>的协助下，这个两个images在App和Display两者间被交换使用。</p>
+<p><img src="https://i.loli.net/2021/11/12/FZ8aoWYCur1N4IL.png" alt="FZ8aoWYCur1N4IL"></p>
+<p>WSI 是Display和应用中间的<strong>interface</strong>。它能够保证Display和Application在使用两个images的过程中是互不干扰的。当App在<strong>第一个Image</strong>上工作的时候，<strong>WSI</strong>把<strong>第二个Image</strong> 交给Display来渲染其内容到屏幕上。当App完成了对<strong>第一个image</strong>的绘图，App就把<strong>第一个image</strong>提交给<strong>WSI</strong>，然后获取<strong>第二个image</strong>来继续一下个draw的工作。</p>
+<p>这里可以理解为image相当于OpenGL里的FrameBuffer, 即内存中的一块区域，它存储了GPU通过它的pipeline流程后最终显示在屏幕上的结果。image的内容，即将要在显示在屏幕上的内容。</p>
+<p>所以此刻，我们将完成下面的操作：</p>
+<ol>
+<li>Create a native window (like the CreateWindow method in the Windows OS)</li>
+<li>Create a WSI surface attached to the window</li>
+<li>Create the swapchain to present to the surface</li>
+<li>Request the drawing images from the created swapchain</li>
+</ol>
+<h2 id="3-资源配置"><a href="#3-资源配置" class="headerlink" title="3. 资源配置"></a>3. 资源配置</h2><p>配置资源意味着存储数据到内存的指定区域。这些数据可能是任何类型的。例如，vertex attributes，包括position，color，image type/name.</p>
+<p>不同于OpenGL那种隐性的管理内存的方式（这里说到隐性的意思是OpenGL本身自己来管理内存，不需要过多的要求用户来管理内存），Vulkan提供了full low-level access and control of memory。Vulkan会广告出物理设备上各式各样的可用的内存，来让App对其做显式的管理。</p>
+<p>Memory Heap 按照其performance可以分为两类：</p>
+<p>Host Local：CPU使用的内存，但是对于GPU读取来说是slower typer of memory</p>
+<p>Device Local：直接attached到GPU物理设备的内存，对于GPU来说是high bandwidth，faster</p>
+<p>按照，内存的配置，又可以分成三种:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Device Local</th>
+<th>Device Local and host visible</th>
+<th>Host Local and host visible</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Visible to device</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Visible to host</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<p>Vulkan 是让App来显式的管理内存资源的。以下是内存管理的process：</p>
+<ol>
+<li><p>Resource Objects：App 来allocate内存资源，这些内存资源包括images或者buffer ojbects</p>
+</li>
+<li><p>Allocation and suballocaiton： 这一段节选书中原文的解释，是内存管理和工作机制的最重要一段内容。</p>
+<p><em>“<strong>When resource objects are created, only logical addresses are associated with them; there is no physical backing available. The application **allocates</strong> physical memory and <strong>binds</strong> these logical addresses to it. As allocation is an expensive process, <strong>suballocation</strong> is an efficient way to manage the memory; <strong>it allocates a big chunk of physical memory at once and puts different resource objects into it.</strong> Suballocation is the responsibility of an application. The following diagram shows the suballocated object from the big allocated piece of physical memory:”</em></p>
+<p><img src="https://i.loli.net/2021/11/12/8loaO6FBzRKvTfs.png" alt="lrTz4DdhAuRWYCO"></p>
+</li>
+<li><p>Sparse memory： 对于超大的image objects，Vulkan自持Sparse memory。Danny对sparse memory的理解就是原来本可以一整块的memory中的对象，但是由于此对象太大，已经超出了内存本身的capacity，Vulkan就把这个超大image object 拆解成tiles，然后只load那些App逻辑处理时需要的tiles。 </p>
+</li>
+<li><p>Staging Buffers：object buffer 和 image buffer 的数据填充是在staging 这个环节完成的。在这个环节里，两个不同的内存区域被用来做物理分配。 对于一个资源的理想的内存放置区域可能是一块host不可见的内存，那么在这种情况下，App就需要先在host-visible的staging buffer这个阶段把resource的数据或者字段填充好，然后再把这个resource转到理想的device local的的内存区域里。</p>
+</li>
+<li><p>Asynchronous Transfer： 数据的传输是通过DMA、Transfer queues的异步commands 来完成的。</p>
+<p>此处书中提到关于OpenGL针对内存的管理，原文值得阅读：</p>
+<p><em>“In contrast, OpenGL resource management does not offer granular control over the memory.</em> <strong><em>There is no conception of host and device memory;\</em></strong> <em>the driver secretly does all of the allocation in the background. Also, these allocation and suballocation processes are not fully transparent and might change from one driver to another. This lack of consistency and hidden memory management cause unpredictable behavior. Vulkan, on the other hand, allocates the object right there in the chosen memory, making it highly predictable.”</em></p>
+</li>
+</ol>
+<p>所以，资源配置有以下5步：</p>
+<ol>
+<li>创建a resource object</li>
+<li>查询合适的内存instance and create内存对象，例如buffer 和 images</li>
+<li>Get 内存allocation的requirements</li>
+<li>Allocate space 并把数据存储进去</li>
+<li>绑定resource object到内存</li>
+</ol>
+<p><strong>思考</strong>：这5步书中没有解释清楚，感觉是第4步先把数据写入内存，再绑定对象到内存中。这种做法非常像OpenGL的VBO 和VAO的概念。即先把绘图模型的数据写入VBO 的buffer里，然后再通过绑定context 当前的VAO来描述VBO里的数据的属性。 建议这块内容在后期Vulkan 的 resource object 创建时看看具体的操作对比OpenGL是怎么进行的。</p>
+<h2 id="4-管线配置"><a href="#4-管线配置" class="headerlink" title="4. 管线配置"></a>4. 管线配置</h2><p>一条pipeline其实就是一组events。这些events会按照application的logic依次发生。这些events包括：供应shaders，把shaders绑定到resource上，并管理其pipeline的state。</p>
+<p><img src="https://i.loli.net/2021/11/12/KE2Yn1zUuo38Rhy.png" alt="KE2Yn1zUuo38Rhy"></p>
+<p>既然管线分成上述三部分，那么就需要对这三部分进行配置。</p>
+<h3 id="Descriptor-sets-and-descriptor-pools"><a href="#Descriptor-sets-and-descriptor-pools" class="headerlink" title="Descriptor sets and descriptor pools"></a>Descriptor sets and descriptor pools</h3><p><strong>名词解释</strong></p>
+<p>A descriptor set 就是resources 和 shaders 之间的interface。 它是一个简单的结构体，可以把shader绑定到resource 上，例如 images或者buffers。它跟shader将要用的一块resouce memory相关联或者bind。 以下是跟descriptor sets相关的一些特点：</p>
+<ul>
+<li><strong>Frequent change:</strong> By nature, a descriptor set changes frequently; generally, it contains attributes such as material, texture, and so on.</li>
+<li><strong>Descriptor pool:</strong> Considering the nature of descriptor sets, they are allocated from a descriptor pool without introducing global synchronization.</li>
+<li><strong>Multithread scalability:</strong> his allows multiple threads to update the descriptor set simultaneously</li>
+</ul>
+<p>所以a descrptor set的fields会经常被改变；他们是由descriptor 池allocate 出来的；一个descriptor set结构体可以同时被多个threads更新。</p>
+<p>注意：更新或者修改一个descriptor set结构体是<strong>Vulkan中性能最关键</strong>的路径。所以，descriptor的结构设计是实现最大性能的一个重要部分。Vulkan 支持三种不同的程度的针对多个descriptor set结构体的logical partitioning。这三种分别是：在scene（low frequency updates），model（medium frequence udpates），和 draw level（high frequency update）。这种工作机制保证了，high frequency的descriptor 更改不会影响到 low frequency descriptor 的 resources。</p>
+<h3 id="Shaders-with-SPIR-V"><a href="#Shaders-with-SPIR-V" class="headerlink" title="Shaders with SPIR-V"></a>Shaders with SPIR-V</h3><p>在Vulkan，唯一能够制定shaders或者compute kernels是通过SPIR-V。SPIR-V有以下特点：</p>
+<ul>
+<li><strong>Multiple inputs:</strong> SPIR-V producing compilers exist for various source languages, including GLSL and HLSL. These can be used to convert a human-readable shader into a SPIR-V intermediate representation.</li>
+<li><strong>Offline compilation</strong>: Shaders/kernels are compiled offline and injected upfront.</li>
+<li><strong>glslangValidator:</strong> LunarG SDK provides the glslangValidator compiler, which can be used to create SPIR-V shaders from equivalent GLSL shaders.</li>
+<li><strong>Multiple entry points</strong>: The shader object provides multiple entry points. This is very beneficial for reducing the shipment size (and the loaded size) of the SPIR-V shaders. Variants of a shader can be packaged into a single module.</li>
+</ul>
+<h3 id="Pipeline-management"><a href="#Pipeline-management" class="headerlink" title="Pipeline management"></a>Pipeline management</h3><p>一个物理设备包括一系类的硬件配置可以用来决定哪些被提交的几何数据将被如何interpreted和drawn。这些设置被总称为pipeline states。他们包括 rasterize state， blend state， 和 depth stencil state； 也包括了所提交的几何体的，和shader用来渲染的图元的topology type（point、line、triangle）。Pipeline里有两种states：dynamic和static。这些pipeline states被用来创建pipeline objects，恰恰这些pipeline objects又是性能的关键。所以我们不想反复的创建这些objects；我们需要创建它们一次，然后复用它们。</p>
+<p>Vulkan允许通过pipeline objects配合<strong>Pipepline Cache Object（PCO）</strong>和Pipeline layout一起来控制管线的states。</p>
+<p><strong>名词解释:</strong></p>
+<p><strong>*Pipeline objects</strong>: Pipeline creation is expensive. It includes shader recompilation, resource binding, Render Pass, framebuffer management, and other related operations. Pipeline objects could be numbered in hundreds and thousands; therefore, each different state combination is stored as a separate pipeline object.*</p>
+<p><strong>*PCO:</strong> The creation of pipelines is expensive; therefore once created, a pipeline can be cached. When a new pipeline is requested, the driver can look for a closer match and create the new pipeline using the base pipeline.*</p>
+<p><strong>*Pipeline layout:</strong> Pipeline layouts describe the descriptor sets that will be used with the pipeline, indicating what kind of resource is attached to each binding slot in the shader. Different pipeline objects can use the same pipeline layout.*</p>
+<p>在pipeline的管理阶段，会发生以下的操作：</p>
+<ul>
+<li><p>Application 把shader 编译成了SPIV-V的格式 并且在pipeline shader state里指定了其细节。</p>
+</li>
+<li><p>descriptor 帮我们把这些资源连接到shader。App 从descriptor pool那里分配了descriptor set，并把incoming 或 outgoing resources 连到shader里所的binding slots上。</p>
+</li>
+<li><p>App 创建pipeline objects，这些object包含了 static and dynamic state configuration to control the hardwre settings. The pipeline should be created from a pipeline cache pool for better performance.</p>
+</li>
+</ul>
+<h2 id="5-指令记录"><a href="#5-指令记录" class="headerlink" title="5. 指令记录"></a>5. 指令记录</h2><p>Recording commands 就是形成command buffer 的过程。Command buffers 是从command pool memory 里创建出来的。 在App给定的开始和结束的范围内，command buffer 就会通过被提供comamnds来被记录下来。 下图表示了一个command buffer记录的过程：</p>
+<p><img src="https://i.loli.net/2021/11/12/EJkg7jxAKXpz2Fv.png" alt="EJkg7jxAKXpz2Fv"></p>
+<p>具体的Drawing包含以下的部分：</p>
+<p><strong>Scope</strong>: The scope defines the start and end of the command buffer recording.</p>
+<p><strong>Render Pass</strong>: This defines the execution process of a job that might affect the</p>
+<p>framebuffer cache. It may comprise attachments, subpasses, and dependencies between those subpasses. The attachment refers to images on which the drawing is performed. In a subpass, an attachment-like image can be subpassed for multisampling resolve. Render Pass also controls how the framebuffer will be treated at the beginning of the pass: it will either retain the last information on it or clear it with the given color. Similarly, at the end of the Render Pass, the results are going to be either discarded or stored.</p>
+<p><strong>Pipeline</strong>: This contains the states’ (static/dynamic) information represented by a pipeline object.</p>
+<p><strong>Descriptor</strong>: This binds the resource information to the pipeline.</p>
+<p><strong>Bind resource</strong>: This specifies the vertex buffer, image, or other geometry-related information.</p>
+<p><strong>Viewport</strong>: This determines the portion of the drawing surface on which the rendering of the primitives will be performed.</p>
+<p><strong>Scissor</strong>: This defines a rectangular space region beyond which nothing will bedrawn.</p>
+<p><strong>Drawing</strong>: The draw command specifies geometry buffer attributes, such as the start index, total count, and so on.</p>
+<p>每一个Command Buffer的创建都是非常昂贵的。如果同样的工作将用在多个frames上，那么command buffer是可以被复用多次的。CB 可以不需要被record而直接提交。而且，多个command buffers可以被同时，被多个threads制造出来。</p>
+<p><img src="https://i.loli.net/2021/11/12/iLnopaShV2TQfCM.png" alt="IzjZd1QHmfrGyhL"></p>
+<p>每一个thread 调用一个单独的command buffer pool来分配一个或多个CBs。</p>
+<h2 id="6-指令提交"><a href="#6-指令提交" class="headerlink" title="6. 指令提交"></a>6. 指令提交</h2><p>当完成了command buffers 的创建， 他们就可以被提交到queue上进行下一步处理。Vulkan 提供了不同的queues，例如：graphics， DMA/transfer or compute queues.  Queue 的选择决定于其queue的天然属性。例如，跟graphics相关的任务必须提交到graphics queue上；compute operations相关的应该提交compute queue。 被提交的jobs 会被异步地执行。Comamnds buffers 可以被推送到多个各自的compatible queues 来进行parallel execution。App要对所有的command buffers 之间的同步 或 queues之间的同步负责，甚至是对host 和 devcie 两者之间的同步也要负责。</p>
+<p>Commands 的提交执行了如下的工作：</p>
+<ul>
+<li>Acquiring the images from the swapchain on which the next frame will be drawn</li>
+<li>Deploying any synchronization mechanism, such as semaphore and fence required</li>
+<li>Gathering the command buffer and submitting it to the required device queue for processing</li>
+<li>Requesting the presentation of the completed painted images on the output device</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>导读1主要Vulkan的一些关键名字，和大颗粒度的工作模式。这个模式包括了6个步骤，并以此介绍了每个步骤里发生了什么，都用到了那些元素。最后读完本篇，闭眼思考以下几个问题，看看你是不是能回答上来？</p>
+<ul>
+<li>本文在Vulkan里提到的pipeline 跟 GLES 提到的图形学里的pipeline有区别吗？</li>
+<li>Command buffer 跟 job descriptor 有什么区别？</li>
+</ul>
+<p>引用： 《Learning Vulkan》</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://broadgeek.com">Danny S.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://broadgeek.com/2021/01/11/59e9/">https://broadgeek.com/2021/01/11/59e9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://broadgeek.com" target="_blank">极客丹尼</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vulkan/">Vulkan</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/geekdanny/images/master/blog/640.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/geekdanny/images/master/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/11/7c7/"><img class="prev-cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/NFrL2w.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Vulkan 导读2: Command Buffer 和内存管理</div></div></a></div><div class="next-post pull-right"><a href="/2020/06/29/c305/"><img class="next-cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/1h1sR8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++ 的函数模板和类模板</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/01/12/2270/" title="Setup Vulkan Development Environment with Clion on MacOS"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/FtU9D7.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-01-12</div><div class="title">Setup Vulkan Development Environment with Clion on MacOS</div></div></a></div><div><a href="/2021/01/11/7c7/" title="Vulkan 导读2: Command Buffer 和内存管理"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/NFrL2w.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-01-11</div><div class="title">Vulkan 导读2: Command Buffer 和内存管理</div></div></a></div><div><a href="/2021/01/11/b21/" title="Vulkan 导读3: 分配Image资源和创建Swapchain"><img class="cover" src="https://raw.githubusercontent.com/geekdanny/images/master/blog/image-20210111155306450.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-01-11</div><div class="title">Vulkan 导读3: 分配Image资源和创建Swapchain</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/geekdanny/images/master/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Danny S.</div><div class="author-info__description">白羊男子 指尖微凉<br> 一半明媚 一半忧伤</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://raw.githubusercontent.com/geekdanny/images/master/wechat.jpg"><i class="fab fa-weixin"></i><span>微信</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/geekdanny" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dhrsongcs@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">每天进步一点点</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vulkan%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">Vulkan的工作机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vulkan%E2%80%99s-Queues"><span class="toc-number">2.</span> <span class="toc-text">Vulkan’s Queues</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Single-Queue%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">Single Queue：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AAQueues%E7%9A%84%E6%97%B6%E5%80%99"><span class="toc-number">2.2.</span> <span class="toc-text">多个Queues的时候</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vulkan-%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">Vulkan 的同步机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vulkan-Objects"><span class="toc-number">4.</span> <span class="toc-text">Vulkan Objects</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Objects%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-and-command-syntax"><span class="toc-number">5.</span> <span class="toc-text">Objects的生命周期 and command syntax</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vulkan-%E5%BA%94%E7%94%A8%E8%B7%9F%E5%91%A8%E8%BE%B9%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">6.</span> <span class="toc-text">Vulkan 应用跟周边的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vulkan%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">7.</span> <span class="toc-text">Vulkan开发流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%A1%AC%E4%BB%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">7.1.</span> <span class="toc-text">1. 硬件初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%AA%97%E5%8F%A3%E5%B1%95%E7%8E%B0"><span class="toc-number">7.2.</span> <span class="toc-text">2. 窗口展现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-number">7.3.</span> <span class="toc-text">3. 资源配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%AE%A1%E7%BA%BF%E9%85%8D%E7%BD%AE"><span class="toc-number">7.4.</span> <span class="toc-text">4. 管线配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Descriptor-sets-and-descriptor-pools"><span class="toc-number">7.4.1.</span> <span class="toc-text">Descriptor sets and descriptor pools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shaders-with-SPIR-V"><span class="toc-number">7.4.2.</span> <span class="toc-text">Shaders with SPIR-V</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pipeline-management"><span class="toc-number">7.4.3.</span> <span class="toc-text">Pipeline management</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%8C%87%E4%BB%A4%E8%AE%B0%E5%BD%95"><span class="toc-number">7.5.</span> <span class="toc-text">5. 指令记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%8C%87%E4%BB%A4%E6%8F%90%E4%BA%A4"><span class="toc-number">7.6.</span> <span class="toc-text">6. 指令提交</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系"><img src="https://s2.loli.net/2022/04/21/JVjPkp1tIU8xmZ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C标准库 POSIX库 glibc库有什么关系"/></a><div class="content"><a class="title" href="/2022/04/20/5398/" title="C标准库 POSIX库 glibc库有什么关系">C标准库 POSIX库 glibc库有什么关系</a><time datetime="2022-04-20T19:56:32.000Z" title="更新于 2022-04-20 12:56:32">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/49da/" title="一些常见的国际标准化组织"><img src="https://s2.loli.net/2022/04/21/1wicXtVxAMlHZOf.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些常见的国际标准化组织"/></a><div class="content"><a class="title" href="/2022/04/20/49da/" title="一些常见的国际标准化组织">一些常见的国际标准化组织</a><time datetime="2022-04-20T19:07:33.000Z" title="更新于 2022-04-20 12:07:33">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现"><img src="https://s2.loli.net/2021/12/13/f93YwJV1RTSMNbx.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="骁龙8Gen1 SoC 在ARMv9上的落地表现"/></a><div class="content"><a class="title" href="/2021/12/12/dd3a/" title="骁龙8Gen1 SoC 在ARMv9上的落地表现">骁龙8Gen1 SoC 在ARMv9上的落地表现</a><time datetime="2021-12-12T23:52:09.000Z" title="更新于 2021-12-12 15:52:09">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进"><img src="https://s2.loli.net/2021/12/13/ew5lOSUv6LWHtGr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ARMv9以及公版CPU有什么重大改进"/></a><div class="content"><a class="title" href="/2021/12/12/c8bf/" title="ARMv9以及公版CPU有什么重大改进">ARMv9以及公版CPU有什么重大改进</a><time datetime="2021-12-12T18:04:13.000Z" title="更新于 2021-12-12 10:04:13">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/11/17d7/" title="移动GPU测试那些事"><img src="https://n.sinaimg.cn/spider2021220/505/w2048h857/20210220/4c68-kkmphpr6926549.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="移动GPU测试那些事"/></a><div class="content"><a class="title" href="/2021/12/11/17d7/" title="移动GPU测试那些事">移动GPU测试那些事</a><time datetime="2021-12-11T18:38:27.000Z" title="更新于 2021-12-11 10:38:27">2021-12-11</time></div></div></div></div></div></div></main><footer id="footer" style="background: black"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Danny S.</div><div class="footer_custom_text">回忆是一种重逢 遗忘是一种自由</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '680c63616574c46feb6f',
+      clientSecret: '6ae95fb865944251ddd1751dd0d7e445aeddd831',
+      repo: 'geek-comments',
+      owner: 'geekdanny',
+      admin: ['geekdanny'],
+      id: '8c909f655f4e2755f05bbff9d28ee214',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const findTrueUrl = (array) => {
+    Promise.all(array.map(item =>
+      fetch(item.url).then(resp => resp.json()).then(data => {
+        const urlArray = data.body.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ig)
+        if (data.user.login === 'utterances-bot') {
+          return urlArray.pop()
+        } else {
+          return urlArray.shift()
+        }
+      })
+    )).then(res => {
+        array = array.map((i,index)=> {
+          return {
+            ...i,
+            url: res[index]
+          }
+        })
+
+        saveToLocal.set('github-newest-comments', JSON.stringify(array), 10/(60*24))
+        generateHtml(array)
+    });
+  }
+
+  const getComment = () => {
+    fetch('https://api.github.com/repos/geekdanny/geek-comments/issues/comments?sort=updated&direction=desc&per_page=6&page=1',{
+      "headers": {
+        Accept: 'application/vnd.github.v3.html+json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const githubArray = data.map(item => {
+          return {
+            'avatar': item.user.avatar_url,
+            'content': changeContent(item.body_html),
+            'nick': item.user.login,
+            'url': item.issue_url,
+            'date': item.updated_at,
+            'githubUrl': item.html_url
+          }
+        })
+        findTrueUrl(githubArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('github-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="4900141628" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.9}});</script></body></html>
